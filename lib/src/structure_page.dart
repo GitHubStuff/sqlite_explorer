@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../sqlite_developer.dart';
+import '../sqlite_explorer.dart';
 
 class StructurePage extends StatefulWidget {
   final String sql;

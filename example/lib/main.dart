@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:hud_scaffold/hud_scaffold.dart';
 import 'package:mode_theme/mode_theme.dart';
 import 'package:sqlite_controller/sqlite_controller.dart' as SQL;
-import 'package:sqlite_developer/sqlite_developer.dart';
+import 'package:sqlite_explorer/sqlite_explorer.dart';
 import 'package:tracers/tracers.dart' as Log;
 
 import 'product_test/table_root/root.g.dart';
-
 
 void main() => runApp(ZerkyApp());
 

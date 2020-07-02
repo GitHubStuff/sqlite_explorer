@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../sqlite_developer.dart';
+import '../sqlite_explorer.dart';
 
 class RawQueryPage extends StatefulWidget {
   final Database database;

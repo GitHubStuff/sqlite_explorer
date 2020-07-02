@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../sqlite_developer.dart';
+import '../sqlite_explorer.dart';
 import 'raw_query_page.dart';
 import 'table_item.dart';
 import 'table_page.dart';

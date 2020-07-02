@@ -16,7 +16,7 @@ dependencies:
   cupertino_icons: ^0.1.3
   flutter:
     sdk: flutter
-  sqlite_developer:
+  sqlite_explorer:
     path: ../
   hud_scaffold:
     git:

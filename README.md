@@ -1,5 +1,3 @@
-# sqlite_developer
+# sqlite_explorer
 
-Creates a button that opens a widget screen that will display SQLite table information and allow for queries
-
-Widget that can display raw sqlite information for development purposes
+Wraps the app with a button that allows re-directs to a set of screens that allow the examination of SQLite tables and to perform database queries, refreshes, and exploreations when developing app that use SQLite.
