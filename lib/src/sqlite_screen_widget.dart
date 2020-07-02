@@ -1,3 +1,4 @@
+/// Gateway widget to view SQLite databases
 import 'package:flutter/material.dart';
 import 'package:sqlite_controller/sqlite_controller.dart';
 import 'sqlite_widget.dart';
