@@ -2,9 +2,16 @@
 /// of anything else without a lot more testing
 
 import 'package:flutter/material.dart';
+import 'package:mode_theme/mode_theme.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'tables_page.dart';
+
+get _modeIcon => Icon(
+      Icons.lightbulb_outline,
+      color: Colors.white,
+      size: 24.0,
+    );
 
 class SqliteWidget extends StatefulWidget {
   /// If set false the widget is disabled and the icon is not displayed (e.g. in production).
@@ -43,9 +50,10 @@ class _SqliteWidgetState extends State<SqliteWidget> {
 
   @override
   Widget build(BuildContext context) {
+    /// The widget isn't enabled (aka production release) return the proper starting widget
     if (!widget.enable || widget.database == null) return widget.child;
-    return Scaffold(
-      body: Stack(
+    return SafeArea(
+      child: Stack(
         children: <Widget>[
           widget.child,
           Offstage(
@@ -69,14 +77,29 @@ class _SqliteWidgetState extends State<SqliteWidget> {
           Container(
             margin: EdgeInsets.all(2),
             alignment: widget.iconAlignment,
-            child: FloatingActionButton(
-              key: Key('SQLiteWidgetForTheFAB'),
-              child: Icon(Icons.storage),
-              onPressed: () {
-                setState(() {
-                  _showContent = !_showContent;
-                });
-              },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FloatingActionButton(
+                  key: Key('LightDarkMode'),
+                  child: _modeIcon,
+                  onPressed: () {
+                    setState(() {
+                      ModeTheme.of(context).toggleBrightness();
+                    });
+                  },
+                ),
+                SizedBox(width: 18),
+                FloatingActionButton(
+                  key: Key('SQLiteWidgetForTheFAB'),
+                  child: Icon(Icons.storage),
+                  onPressed: () {
+                    setState(() {
+                      _showContent = !_showContent;
+                    });
+                  },
+                ),
+              ],
             ),
           )
         ],

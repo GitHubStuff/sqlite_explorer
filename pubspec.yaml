@@ -1,6 +1,6 @@
 name: sqlite_developer
 description: Package to display sqlite data
-version: 0.2.0+5
+version: 0.2.0+9
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

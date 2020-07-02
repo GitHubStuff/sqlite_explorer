@@ -1,3 +1,4 @@
+// List of tables in the database
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -54,13 +55,16 @@ class _TablesPageState extends State<TablesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        color: modeView.color(context),
-        child: Column(
-          children: <Widget>[
-            Container(
-                child: Wrap(
+    return Scaffold(body: _body(context));
+  }
+
+  Widget _body(BuildContext context) {
+    return Container(
+      color: modeView.color(context),
+      child: Column(
+        children: <Widget>[
+          Container(
+            child: Wrap(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(2.0),
@@ -68,7 +72,10 @@ class _TablesPageState extends State<TablesPage> {
                     onPressed: () {
                       _getTables();
                     },
-                    child: Text("Refresh", style: Theme.of(context).textTheme.headline6),
+                    child: Text(
+                      'Refresh',
+                      style: Theme.of(context).textTheme.button,
+                    ),
                   ),
                 ),
                 Padding(
@@ -81,7 +88,7 @@ class _TablesPageState extends State<TablesPage> {
                         widget.database.close();
                       });
                     },
-                    child: Text("Delete database", style: Theme.of(context).textTheme.headline6),
+                    child: Text("Wipe database", style: Theme.of(context).textTheme.button),
                   ),
                 ),
                 Padding(
@@ -99,42 +106,42 @@ class _TablesPageState extends State<TablesPage> {
                         ),
                       );
                     },
-                    child: Text("Raw Query", style: Theme.of(context).textTheme.headline6),
+                    child: Text("Query", style: Theme.of(context).textTheme.button),
                   ),
                 ),
               ],
-            )),
-            Expanded(
-              child: StreamBuilder<List<TableItem>>(
-                stream: _streamController.stream,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView(
-                      children: snapshot.data.map((table) {
-                        return ListTile(
-                          title: Text(table.name, style: TextStyle(color: modeText.color(context))),
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                              return TablePage(
-                                tableName: table.name,
-                                database: widget.database,
-                                sql: table.sql,
-                                rowsPerPage: widget.rowsPerPage,
-                              );
-                            }));
-                          },
-                          trailing: Icon(Icons.art_track, color: modeText.color(context)),
-                        );
-                      }).toList(),
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-              ),
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: StreamBuilder<List<TableItem>>(
+              stream: _streamController.stream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView(
+                    children: snapshot.data.map((table) {
+                      return ListTile(
+                        title: Text(table.name, style: TextStyle(color: modeText.color(context))),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                            return TablePage(
+                              tableName: table.name,
+                              database: widget.database,
+                              sql: table.sql,
+                              rowsPerPage: widget.rowsPerPage,
+                            );
+                          }));
+                        },
+                        trailing: Icon(Icons.art_track, color: modeText.color(context)),
+                      );
+                    }).toList(),
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

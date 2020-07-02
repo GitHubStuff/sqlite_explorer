@@ -19,15 +19,17 @@ class _StructurePageState extends State<StructurePage> {
 
     return Column(
       children: <Widget>[
-        Expanded(
-          child: Container(
-            color: modeView.color(context),
-            child: ListView(
-              children: columns.map((column) {
-                return ListTile(
-                  title: Text(column.trimLeft(), style: TextStyle(color: modeText.color(context))),
-                );
-              }).toList(),
+        Container(
+          child: Expanded(
+            child: Card(
+              color: modeView.color(context),
+              child: ListView(
+                children: columns.map((column) {
+                  return ListTile(
+                    title: Text(column.trimLeft(), style: TextStyle(color: modeText.color(context))),
+                  );
+                }).toList(),
+              ),
             ),
           ),
         ),
