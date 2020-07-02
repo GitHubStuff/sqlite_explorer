@@ -1,4 +1,4 @@
-library sqlite_developer;
+library sqlite_explorer;
 
 import 'package:flutter/material.dart';
 import 'package:mode_theme/mode_theme.dart';
