@@ -2,10 +2,10 @@ name: example_developer
 description: An example app for flutter_sqflite_manager
 # Paste just below 'description:'
 
-version: 0.0.2
+version: 0.0.3
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   after_layout: ^1.0.7+2
