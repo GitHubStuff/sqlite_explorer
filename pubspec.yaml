@@ -1,9 +1,9 @@
 name: sqlite_explorer
-description: Package to display sqlite data
-version: 0.3.0+0
+description: Package to display sqlite data tables
+version: 0.3.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.8.0 <3.0.0"
 
 dependencies:
   after_layout: ^1.0.7+2
@@ -14,7 +14,7 @@ dependencies:
   mode_theme:
     git:
       url: https://github.com/GitHubStuff/mode_theme.git
-  shared_preferences: ^0.5.7+2
+  shared_preferences: ^0.5.8
   sqlite_controller:
     git:
       url: https://github.com/GitHubStuff/sqlite_controller.git
