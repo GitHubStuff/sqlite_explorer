@@ -47,14 +47,16 @@ class SqliteWidget extends StatefulWidget {
 
 class _SqliteWidgetState extends State<SqliteWidget> {
   bool _showContent = false;
-  Color modeColor = Colors.white;
+  Color _modeColor = Colors.white;
+  double _opacity = 0.0;
+  final _buttonSize = 52.0;
 
   @override
   Widget build(BuildContext context) {
     /// The widget isn't enabled (aka production release) return the proper starting widget
     if (!widget.enable || widget.database == null) return widget.child;
     final mode = ModeTheme.of(context).brightness;
-    modeColor = (mode == Brightness.light) ? Colors.white : Colors.grey;
+    _modeColor = (mode == Brightness.light) ? Colors.white : Colors.grey;
     return SafeArea(
       child: Stack(
         children: <Widget>[
@@ -83,36 +85,30 @@ class _SqliteWidgetState extends State<SqliteWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // FloatingActionButton(
-                //   key: Key('LightDarkMode'),
-                //   child: _modeIcon,
-                //   onPressed: () {
-                //     setState(() {
-                //       ModeTheme.of(context).toggleBrightness();
-                //     });
-                //   },
-                // ),
-                ClipOval(
-                  child: Material(
-                    color: Colors.purple, // button color
-                    child: InkWell(
-                      splashColor: Colors.teal, // inkwell color
-                      child: SizedBox(
-                        width: 44,
-                        height: 44,
-                        child: Icon(
-                          Icons.lightbulb_outline,
-                          color: modeColor,
-                          size: 24.0,
+                Opacity(
+                  opacity: _opacity,
+                  child: ClipOval(
+                    child: Material(
+                      color: Colors.purple, // button color
+                      child: InkWell(
+                        splashColor: Colors.teal, // inkwell color
+                        child: SizedBox(
+                          width: _buttonSize,
+                          height: _buttonSize,
+                          child: Icon(
+                            Icons.lightbulb_outline,
+                            color: _modeColor,
+                            size: 24.0,
+                          ),
                         ),
+                        onTap: () {
+                          setState(() {
+                            ModeTheme.of(context).toggleBrightness();
+                            final mode = ModeTheme.of(context).brightness;
+                            _modeColor = (mode == Brightness.light) ? Colors.white : Colors.grey;
+                          });
+                        },
                       ),
-                      onTap: () {
-                        setState(() {
-                          ModeTheme.of(context).toggleBrightness();
-                          final mode = ModeTheme.of(context).brightness;
-                          modeColor = (mode == Brightness.light) ? Colors.white : Colors.grey;
-                        });
-                      },
                     ),
                   ),
                 ),
@@ -123,8 +119,8 @@ class _SqliteWidgetState extends State<SqliteWidget> {
                     child: InkWell(
                       splashColor: Colors.teal, // inkwell color
                       child: SizedBox(
-                          width: 44,
-                          height: 44,
+                          width: _buttonSize,
+                          height: _buttonSize,
                           child: Icon(
                             Icons.storage,
                             color: Colors.white,
@@ -133,6 +129,7 @@ class _SqliteWidgetState extends State<SqliteWidget> {
                       onTap: () {
                         setState(() {
                           _showContent = !_showContent;
+                          _opacity = (_showContent) ? 1.0 : 0.0;
                         });
                       },
                     ),
