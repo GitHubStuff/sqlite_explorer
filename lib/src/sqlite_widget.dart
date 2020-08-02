@@ -83,7 +83,7 @@ class _SqliteWidgetState extends State<SqliteWidget> {
             margin: EdgeInsets.all(2),
             alignment: widget.iconAlignment,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Opacity(
                   opacity: _opacity,
