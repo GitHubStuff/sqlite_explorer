@@ -47,11 +47,14 @@ class SqliteWidget extends StatefulWidget {
 
 class _SqliteWidgetState extends State<SqliteWidget> {
   bool _showContent = false;
+  Color modeColor = Colors.white;
 
   @override
   Widget build(BuildContext context) {
     /// The widget isn't enabled (aka production release) return the proper starting widget
     if (!widget.enable || widget.database == null) return widget.child;
+    final mode = ModeTheme.of(context).brightness;
+    modeColor = (mode == Brightness.light) ? Colors.white : Colors.grey;
     return SafeArea(
       child: Stack(
         children: <Widget>[
@@ -78,7 +81,7 @@ class _SqliteWidgetState extends State<SqliteWidget> {
             margin: EdgeInsets.all(2),
             alignment: widget.iconAlignment,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // FloatingActionButton(
                 //   key: Key('LightDarkMode'),
@@ -89,17 +92,44 @@ class _SqliteWidgetState extends State<SqliteWidget> {
                 //     });
                 //   },
                 // ),
-                // SizedBox(width: 18),
                 ClipOval(
                   child: Material(
                     color: Colors.purple, // button color
                     child: InkWell(
                       splashColor: Colors.teal, // inkwell color
-                      child: Icon(
-                        Icons.storage,
-                        color: Colors.white,
-                        size: 24.0,
+                      child: SizedBox(
+                        width: 44,
+                        height: 44,
+                        child: Icon(
+                          Icons.lightbulb_outline,
+                          color: modeColor,
+                          size: 24.0,
+                        ),
                       ),
+                      onTap: () {
+                        setState(() {
+                          ModeTheme.of(context).toggleBrightness();
+                          final mode = ModeTheme.of(context).brightness;
+                          modeColor = (mode == Brightness.light) ? Colors.white : Colors.grey;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(width: 18),
+                ClipOval(
+                  child: Material(
+                    color: Colors.purple, // button color
+                    child: InkWell(
+                      splashColor: Colors.teal, // inkwell color
+                      child: SizedBox(
+                          width: 44,
+                          height: 44,
+                          child: Icon(
+                            Icons.storage,
+                            color: Colors.white,
+                            size: 24.0,
+                          )),
                       onTap: () {
                         setState(() {
                           _showContent = !_showContent;
@@ -107,16 +137,6 @@ class _SqliteWidgetState extends State<SqliteWidget> {
                       },
                     ),
                   ),
-                ),
-                FloatingActionButton(
-                  key: Key('SQLiteWidgetForTheFAB'),
-                  heroTag: Key('SQLiteWidgetForTheHeroTag'),
-                  child: Icon(Icons.storage),
-                  onPressed: () {
-                    setState(() {
-                      _showContent = !_showContent;
-                    });
-                  },
                 ),
               ],
             ),
