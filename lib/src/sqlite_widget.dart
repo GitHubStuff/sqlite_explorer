@@ -80,18 +80,37 @@ class _SqliteWidgetState extends State<SqliteWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FloatingActionButton(
-                  key: Key('LightDarkMode'),
-                  child: _modeIcon,
-                  onPressed: () {
-                    setState(() {
-                      ModeTheme.of(context).toggleBrightness();
-                    });
-                  },
+                // FloatingActionButton(
+                //   key: Key('LightDarkMode'),
+                //   child: _modeIcon,
+                //   onPressed: () {
+                //     setState(() {
+                //       ModeTheme.of(context).toggleBrightness();
+                //     });
+                //   },
+                // ),
+                // SizedBox(width: 18),
+                ClipOval(
+                  child: Material(
+                    color: Colors.purple, // button color
+                    child: InkWell(
+                      splashColor: Colors.teal, // inkwell color
+                      child: Icon(
+                        Icons.storage,
+                        color: Colors.white,
+                        size: 24.0,
+                      ),
+                      onTap: () {
+                        setState(() {
+                          _showContent = !_showContent;
+                        });
+                      },
+                    ),
+                  ),
                 ),
-                SizedBox(width: 18),
                 FloatingActionButton(
                   key: Key('SQLiteWidgetForTheFAB'),
+                  heroTag: Key('SQLiteWidgetForTheHeroTag'),
                   child: Icon(Icons.storage),
                   onPressed: () {
                     setState(() {
