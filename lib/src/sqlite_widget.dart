@@ -7,12 +7,6 @@ import 'package:sqflite/sqflite.dart';
 
 import 'tables_page.dart';
 
-get _modeIcon => Icon(
-      Icons.lightbulb_outline,
-      color: Colors.white,
-      size: 24.0,
-    );
-
 class SqliteWidget extends StatefulWidget {
   /// If set false the widget is disabled and the icon is not displayed (e.g. in production).
   final bool enable;

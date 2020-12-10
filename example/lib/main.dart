@@ -103,7 +103,7 @@ class _Zerky extends State<Zerky> with WidgetsBindingObserver, AfterLayoutMixin<
             setState(() {
               hideSpinner = false;
               final m = jsonData();
-              root = Root.fromJson(m);
+              final root = Root.fromJson(m);
               root.createLink().then((result) {
                 sqliteKey = result;
               });
