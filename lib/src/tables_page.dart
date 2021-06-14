@@ -2,7 +2,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as M;
 import 'package:sqflite/sqflite.dart';
+import 'package:sqlite_explorer/src/moor_bridge.dart';
 
 import '../sqlite_explorer.dart';
 import 'raw_query_page.dart';
@@ -10,11 +12,16 @@ import 'table_item.dart';
 import 'table_page.dart';
 
 class TablesPage extends StatefulWidget {
-  final Database database;
-  final Function onDatabaseDeleted;
+  final MoorBridge moorBridge;
+  final Function? onDatabaseDeleted;
   final int rowsPerPage;
 
-  TablesPage({Key key, this.database, this.onDatabaseDeleted, this.rowsPerPage}) : super(key: key);
+  TablesPage({
+    Key? key,
+    required this.moorBridge,
+    this.onDatabaseDeleted,
+    this.rowsPerPage = 6,
+  }) : super(key: key);
 
   _TablesPageState createState() => _TablesPageState();
 }
@@ -40,13 +47,13 @@ class _TablesPageState extends State<TablesPage> {
   /// - rootpage: INTEGER
   /// - sql: TEXT
   Future<void> _getTables() async {
-    if (widget.database.isOpen) {
-      var tablesRows = await widget.database.query(
+    if (widget.moorBridge.isOpen) {
+      var tablesRows = await widget.moorBridge.query(
         'sqlite_master',
         where: 'type = ?',
         whereArgs: ['table'],
       );
-      final tables = tablesRows.map((table) => TableItem(table['name'], table['sql'])).toList();
+      final tables = tablesRows.map((table) => TableItem(table['name'] as String, table['sql'] as String)).toList();
       _streamController.sink.add(tables);
     } else {
       debugPrint("database closed");
@@ -60,15 +67,15 @@ class _TablesPageState extends State<TablesPage> {
 
   Widget _body(BuildContext context) {
     return Container(
-      color: modeView.color(context),
-      child: Column(
+      color: modeView.of(context: context),
+      child: M.Column(
         children: <Widget>[
           Container(
             child: Wrap(
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       _getTables();
                     },
@@ -80,12 +87,12 @@ class _TablesPageState extends State<TablesPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
-                      var path = widget.database.path;
+                      var path = widget.moorBridge.path;
                       deleteDatabase(path).then((value) {
                         _streamController.sink.add([]);
-                        widget.database.close();
+                        widget.moorBridge.close();
                       });
                     },
                     child: Text("Wipe database", style: Theme.of(context).textTheme.button),
@@ -93,13 +100,13 @@ class _TablesPageState extends State<TablesPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(2.0),
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) {
                             return RawQueryPage(
-                              database: widget.database,
+                              moorBridge: widget.moorBridge,
                               rowsPerPage: widget.rowsPerPage,
                             );
                           },
@@ -118,20 +125,20 @@ class _TablesPageState extends State<TablesPage> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return ListView(
-                    children: snapshot.data.map((table) {
+                    children: snapshot.data!.map((table) {
                       return ListTile(
-                        title: Text(table.name, style: TextStyle(color: modeText.color(context))),
+                        title: Text(table.name, style: TextStyle(color: modeText.of(context: context))),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                             return TablePage(
                               tableName: table.name,
-                              database: widget.database,
+                              moorBridge: widget.moorBridge,
                               sql: table.sql,
                               rowsPerPage: widget.rowsPerPage,
                             );
                           }));
                         },
-                        trailing: Icon(Icons.art_track, color: modeText.color(context)),
+                        trailing: Icon(Icons.art_track, color: modeText.of(context: context)),
                       );
                     }).toList(),
                   );

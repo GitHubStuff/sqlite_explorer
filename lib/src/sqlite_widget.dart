@@ -1,9 +1,9 @@
-/// NOTE: This widget should be used by SqliteScreenWidget and VERY VERY CAUTIOUSLY as child widget
-/// of anything else without a lot more testing
+// NOTE: This widget should be used by SqliteScreenWidget and VERY VERY CAUTIOUSLY as child widget
+// of anything else without a lot more testing
 
 import 'package:flutter/material.dart';
-import 'package:mode_theme/mode_theme.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqlite_explorer/src/moor_bridge.dart';
+import 'package:theme_manager/theme_manager.dart';
 
 import 'tables_page.dart';
 
@@ -18,23 +18,23 @@ class SqliteWidget extends StatefulWidget {
   final Alignment iconAlignment;
 
   /// To pass the app's database to the manager
-  final Database database;
+  final MoorBridge database;
 
   /// Called when the database is deleted inside the manager
-  final Function onDatabaseDeleted;
+  final Function? onDatabaseDeleted;
 
   /// Set the number of rows visible per each page in order to avoid scrolling
   final int rowsPerPage;
 
-  SqliteWidget(
-      {Key key,
-      @required this.child,
-      this.enable = true,
-      this.iconAlignment = Alignment.bottomRight,
-      @required this.database,
-      this.onDatabaseDeleted,
-      this.rowsPerPage = 6})
-      : super(key: key);
+  SqliteWidget({
+    Key? key,
+    required this.child,
+    this.enable = true,
+    this.iconAlignment = Alignment.bottomRight,
+    required this.database,
+    this.onDatabaseDeleted,
+    this.rowsPerPage = 6,
+  }) : super(key: key);
 
   _SqliteWidgetState createState() => _SqliteWidgetState();
 }
@@ -48,8 +48,8 @@ class _SqliteWidgetState extends State<SqliteWidget> {
   @override
   Widget build(BuildContext context) {
     /// The widget isn't enabled (aka production release) return the proper starting widget
-    if (!widget.enable || widget.database == null) return widget.child;
-    final mode = ModeTheme.of(context).brightness;
+    if (!widget.enable) return widget.child;
+    final mode = ThemeManager.brightness(context);
     _modeColor = (mode == Brightness.light) ? Colors.white : Colors.grey;
     return SafeArea(
       child: Stack(
@@ -63,7 +63,7 @@ class _SqliteWidgetState extends State<SqliteWidget> {
                 if (settings.name == 'root') {
                   return MaterialPageRoute(builder: (context) {
                     return TablesPage(
-                      database: widget.database,
+                      moorBridge: widget.database,
                       onDatabaseDeleted: widget.onDatabaseDeleted,
                       rowsPerPage: widget.rowsPerPage,
                     );
@@ -97,9 +97,9 @@ class _SqliteWidgetState extends State<SqliteWidget> {
                         ),
                         onTap: () {
                           setState(() {
-                            ModeTheme.of(context).toggleBrightness();
-                            final mode = ModeTheme.of(context).brightness;
-                            _modeColor = (mode == Brightness.light) ? Colors.white : Colors.grey;
+                            // ModeTheme.of(context).toggleBrightness();
+                            // final mode = ModeTheme.of(context).brightness;
+                            // _modeColor = (mode == Brightness.light) ? Colors.white : Colors.grey;
                           });
                         },
                       ),

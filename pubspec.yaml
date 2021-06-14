@@ -1,21 +1,28 @@
 name: sqlite_explorer
 description: Package to display sqlite data tables
-version: 0.4.0+1
+publish_to: none
+version: 0.5.0+1
 
 environment:
-  sdk: ">=2.8.0 <3.0.0"
+  sdk: ">=2.13.3 <3.0.0"
 
 dependencies:
-  after_layout: ^1.0.7+2
-  auto_size_text: ^2.1.0
-  cupertino_icons: ^1.0.0
   flutter:
     sdk: flutter
-  theme_packge:
-    path: ../theme_package
-  shared_preferences: ^0.5.12+2
-  sqlite_controller:
-    path: ../sqlite_controller
+  theme_manager:
+    git:
+      url: https://github.com/GitHubStuff/theme_manager.git
+  after_layout: ^1.1.0
+  auto_size_text: ^2.1.0
+  cupertino_icons: ^1.0.3
+  shared_preferences: ^2.0.6
+  path_provider: ^2.0.2
+  moor: ^4.3.2
+  sqflite: ^2.0.0+3
+  tracers_package:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: tracers_package
 
 dev_dependencies:
   flutter_test:

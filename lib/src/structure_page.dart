@@ -5,7 +5,7 @@ import '../sqlite_explorer.dart';
 class StructurePage extends StatefulWidget {
   final String sql;
 
-  StructurePage({Key key, this.sql}) : super(key: key);
+  StructurePage({Key? key, required this.sql}) : super(key: key);
 
   _StructurePageState createState() => _StructurePageState();
 }
@@ -22,11 +22,11 @@ class _StructurePageState extends State<StructurePage> {
         Container(
           child: Expanded(
             child: Card(
-              color: modeView.color(context),
+              color: modeView.of(context: context),
               child: ListView(
                 children: columns.map((column) {
                   return ListTile(
-                    title: Text(column.trimLeft(), style: TextStyle(color: modeText.color(context))),
+                    title: Text(column.trimLeft(), style: TextStyle(color: modeText.of(context: context))),
                   );
                 }).toList(),
               ),

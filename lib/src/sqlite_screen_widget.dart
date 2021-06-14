@@ -1,8 +1,9 @@
 /// Gateway widget to view SQLite databases
 import 'package:flutter/material.dart';
-import 'package:sqlite_controller/sqlite_controller.dart';
+import 'package:sqlite_explorer/src/moor_bridge.dart';
+import 'package:tracers_package/tracers.dart';
+
 import 'sqlite_widget.dart';
-import 'package:tracers/tracers.dart' as Log;
 
 /// This is the default named for the routes defined in 'routes' of the MaterialApp, it can be overridden calling
 /// SqliteScreenWidget.setRoute(newName).
@@ -35,22 +36,19 @@ class SqliteScreenWidget extends StatefulWidget {
   /// Call to that defines the SQLite database instance (founding concept is a single Sqlite database file for each app)
   /// This is wrapper for info passed to create/open a sqlite database (name, version, create callback, update callback)
   /// found in the SQLite spec.
-  final SQLiteIdentity sqliteIdentity;
+  final MoorBridge moorBridge;
 
   SqliteScreenWidget({
-    Key key,
-    @required this.childWidget,
-    @required this.enabled,
-    @required this.sqliteIdentity,
-    this.rowsPerPage = 100,
-    String route = _defaultRoute,
-  })  : assert(childWidget != null),
-        assert(enabled != null),
-        assert(sqliteIdentity != null),
-        assert(rowsPerPage != null && rowsPerPage > 4),
+    Key? key,
+    required this.childWidget,
+    required this.enabled,
+    required this.moorBridge,
+    this.rowsPerPage = 6,
+    String? route,
+  })  : assert(rowsPerPage > 4),
         super(key: key) {
-    setRoute(route ?? _route);
-    Log.t('sqlite_screen_widget.dart');
+    setRoute(route ?? _defaultRoute);
+    Log.T('sqlite_screen_widget.dart');
   }
 
   _SqliteScreenWidgetState createState() => _SqliteScreenWidgetState();
@@ -65,7 +63,7 @@ class _SqliteScreenWidgetState extends State<SqliteScreenWidget> {
       future: _getWidget(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return snapshot.data;
+          return snapshot.data!;
         } else {
           return Container(alignment: Alignment.center, child: CircularProgressIndicator());
         }
@@ -76,14 +74,14 @@ class _SqliteScreenWidgetState extends State<SqliteScreenWidget> {
   /// This async tasks opens/creates/updates the sqlite database from the SQLiteIdentity class that was
   /// passed.
   Future<Widget> _getWidget() async {
-    await SqliteController.initialize(
-      name: widget.sqliteIdentity.databaseName,
-      version: widget.sqliteIdentity.databaseVersion ?? 1,
-      create: widget.sqliteIdentity.dbCreate,
-      upgrade: widget.sqliteIdentity.dbUpgrade,
-    );
+    // await SqliteController.initialize(
+    //   name: widget.sqliteIdentity.databaseName,
+    //   version: widget.sqliteIdentity.databaseVersion ?? 1,
+    //   create: widget.sqliteIdentity.dbCreate,
+    //   upgrade: widget.sqliteIdentity.dbUpgrade,
+    // );
     return SqliteWidget(
-      database: SqliteController.database,
+      database: widget.moorBridge,
       enable: widget.enabled,
       child: widget.childWidget,
       iconAlignment: Alignment.bottomCenter,

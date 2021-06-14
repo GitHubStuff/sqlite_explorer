@@ -21,7 +21,7 @@ class ZerkyApp extends StatelessWidget {
         return MaterialApp(
           home: SqliteScreenWidget(
             childWidget: Zerky(),
-            sqliteIdentity: SQL.SQLiteIdentity(databaseName: 'flutter_sqlite_developer.db'),
+            moorBridge: SQL.SQLiteIdentity(databaseName: 'flutter_sqlite_developer.db'),
             enabled: true,
           ),
           initialRoute: '/',
@@ -29,7 +29,7 @@ class ZerkyApp extends StatelessWidget {
             Zerky.route: (context) => ZerkyApp(),
             SqliteScreenWidget.route: (context) => SqliteScreenWidget(
                   childWidget: Zerky(),
-                  sqliteIdentity: SQL.SQLiteIdentity(databaseName: 'flutter_sqlite_developer.db'),
+                  moorBridge: SQL.SQLiteIdentity(databaseName: 'flutter_sqlite_developer.db'),
                   enabled: true,
                 ),
           },

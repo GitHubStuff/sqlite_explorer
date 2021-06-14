@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqlite_explorer/src/moor_bridge.dart';
 
 import '../sqlite_explorer.dart';
 
 class RawQueryPage extends StatefulWidget {
-  final Database database;
+  final MoorBridge moorBridge;
+  //final Database db;
   final int rowsPerPage;
 
   const RawQueryPage({
-    Key key,
-    @required this.database,
-    this.rowsPerPage,
-  })  : assert(database != null),
-        super(key: key);
+    Key? key,
+    required this.moorBridge,
+    this.rowsPerPage = 6,
+  }) : super(key: key);
 
   @override
   _RawQueryPageState createState() => _RawQueryPageState();
@@ -20,8 +20,8 @@ class RawQueryPage extends StatefulWidget {
 
 class _RawQueryPageState extends State<RawQueryPage> {
   final TextEditingController _sqlQueryController = TextEditingController();
-  List<Map<String, dynamic>> _result;
-  String _error;
+  List<Map<String, dynamic>>? _result;
+  String _error = '';
   bool _isQueryRunning = false;
 
   @override
@@ -43,11 +43,11 @@ class _RawQueryPageState extends State<RawQueryPage> {
 
     try {
       setState(() {
-        _error = null;
+        _error = '';
         _isQueryRunning = true;
       });
 
-      final result = await widget.database.rawQuery(query);
+      final result = await widget.moorBridge.rawQuery(query);
 
       setState(() {
         _result = result;
@@ -64,10 +64,10 @@ class _RawQueryPageState extends State<RawQueryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: modeView.color(context),
+      backgroundColor: modeView.of(context: context),
       appBar: AppBar(
-        backgroundColor: modeView.color(context),
-        iconTheme: IconThemeData(color: modeView.color(context)),
+        backgroundColor: modeView.of(context: context),
+        iconTheme: IconThemeData(color: modeView.of(context: context)),
         elevation: 0.0,
       ),
       body: _buildBody(),
@@ -101,7 +101,7 @@ class _RawQueryPageState extends State<RawQueryPage> {
       return CircularProgressIndicator();
     }
 
-    if (this._error != null) {
+    if (this._error.isNotEmpty) {
       return Text(
         _error,
         style: TextStyle(
@@ -114,7 +114,7 @@ class _RawQueryPageState extends State<RawQueryPage> {
       return Container();
     }
 
-    if (this._result.isEmpty) {
+    if (this._result != null && this._result!.isEmpty) {
       return Text(
         "Success.\nResults: $_result",
         style: TextStyle(backgroundColor: Colors.deepPurple),
@@ -123,7 +123,7 @@ class _RawQueryPageState extends State<RawQueryPage> {
 
     return SingleChildScrollView(
       child: PaginatedDataTable(
-        columns: _result[0].keys.map((key) {
+        columns: _result![0].keys.map((key) {
           return DataColumn(
               label: Text(
             key,
@@ -134,8 +134,8 @@ class _RawQueryPageState extends State<RawQueryPage> {
           'Result',
           style: TextStyle(color: Colors.red),
         ),
-        source: _DBDataTableSource(_result),
-        rowsPerPage: this.widget.rowsPerPage ?? 6,
+        source: _DBDataTableSource(_result!),
+        rowsPerPage: this.widget.rowsPerPage,
       ),
     );
   }
@@ -144,14 +144,13 @@ class _RawQueryPageState extends State<RawQueryPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
-        RaisedButton.icon(
-          color: Colors.blue,
+        ElevatedButton.icon(
           onPressed: () {
             _sqlQueryController.clear();
           },
           icon: Icon(
             Icons.close,
-            color: modeText.color(context),
+            color: modeText.of(context: context),
           ),
           label: Text(
             'Clear',
@@ -162,8 +161,7 @@ class _RawQueryPageState extends State<RawQueryPage> {
           ),
         ),
         SizedBox(width: 16.0),
-        RaisedButton.icon(
-          color: Colors.blue,
+        ElevatedButton.icon(
           onPressed: !this._isQueryRunning
               ? () {
                   // Hide keyboard

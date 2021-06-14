@@ -1,8 +1,8 @@
 // Show a single table
 import 'package:flutter/material.dart';
-import 'package:mode_theme/mode_theme.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:tracers/tracers.dart' as Log;
+import 'package:sqlite_explorer/src/moor_bridge.dart';
+import 'package:theme_manager/theme_manager.dart';
+import 'package:tracers_package/tracers.dart';
 
 import 'fsm_datasource.dart';
 import 'structure_page.dart';
@@ -10,15 +10,15 @@ import 'structure_page.dart';
 class TablePage extends StatefulWidget {
   final String sql;
   final String tableName;
-  final Database database;
+  final MoorBridge moorBridge;
   final int rowsPerPage;
 
   TablePage({
-    Key key,
-    this.tableName,
-    this.database,
-    this.sql,
-    this.rowsPerPage,
+    Key? key,
+    required this.tableName,
+    required this.moorBridge,
+    required this.sql,
+    this.rowsPerPage = 6,
   }) : super(key: key);
 
   _TablePageState createState() => _TablePageState(this.tableName);
@@ -26,9 +26,7 @@ class TablePage extends StatefulWidget {
 
 class _TablePageState extends State<TablePage> {
   String tableName;
-  _TablePageState(String tableName) {
-    this.tableName = tableName;
-  }
+  _TablePageState(this.tableName);
 
   FSMDataSource _dataSource = FSMDataSource();
 
@@ -43,8 +41,8 @@ class _TablePageState extends State<TablePage> {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = ModeColor(light: Colors.white, dark: Colors.grey).color(context);
-    final dataColors = ModeColor(light: Colors.black87, dark: Colors.white70).color(context);
+    final backgroundColor = ThemeColors(light: Colors.white, dark: Colors.grey).of(context: context);
+    final dataColors = ThemeColors(light: Colors.black87, dark: Colors.white70).of(context: context);
     return WillPopScope(
       onWillPop: () async {
         if (Navigator.of(context).userGestureInProgress)
@@ -62,9 +60,9 @@ class _TablePageState extends State<TablePage> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(2.0),
-                      child: RaisedButton(
+                      child: ElevatedButton(
                         onPressed: () {
-                          widget.database.delete(widget.tableName).then((value) {
+                          widget.moorBridge.delete(tableName: widget.tableName).then((value) {
                             _getData();
                           });
                         },
@@ -73,7 +71,7 @@ class _TablePageState extends State<TablePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2.0),
-                      child: RaisedButton(
+                      child: ElevatedButton(
                         onPressed: () {
                           _getData();
                         },
@@ -82,7 +80,7 @@ class _TablePageState extends State<TablePage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(2.0),
-                      child: RaisedButton(
+                      child: ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                             return StructurePage(sql: widget.sql);
@@ -136,7 +134,7 @@ class _TablePageState extends State<TablePage> {
   }
 
   _getData() {
-    widget.database.query(widget.tableName, orderBy: 'rowid').then((rows) {
+    widget.moorBridge.query(widget.tableName, orderBy: 'rowid').then((rows) {
       if (rows.length > 0) {
         List<List<String>> list = [];
 
@@ -153,12 +151,12 @@ class _TablePageState extends State<TablePage> {
 
   _getColumns() async {
     print(this.tableName);
-    var rows = widget.database.rawQuery("select group_concat(name, '|') from pragma_table_info('${this.tableName}')");
+    var rows = widget.moorBridge.rawQuery("select group_concat(name, '|') from pragma_table_info('${this.tableName}')");
     var cleanedRows = await rows;
     var columnsString = cleanedRows.toString().replaceAll("[{group_concat(name, '|'): ", "").replaceAll("}]", "");
     var column = columnsString.toString().split("|");
     final columnNameColor = Colors.yellowAccent;
-    Log.p('columnNameColor ${columnNameColor.toString()}');
+    Log.T('columnNameColor ${columnNameColor.toString()}');
     _columns.addAll(column.map((key) {
       return DataColumn(
         label: Text(

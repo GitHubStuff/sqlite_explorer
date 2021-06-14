@@ -131,7 +131,7 @@ class Clasp extends SQL.SQLParse<Clasp> {
          $_wasAHit
      )''';
 
-    int newRowid = await SQL.SqliteController.database.rawInsert(sql);
+    int newRowid = await SQL.SqliteController.moorBridge.rawInsert(sql);
     this.rowid = newRowid;
     return this.rowid;
   }
@@ -143,7 +143,7 @@ class Clasp extends SQL.SQLParse<Clasp> {
     String sql = 'SELECT rowid,* from CLASP';
     if (clause != null) sql += ' WHERE $clause';
     if (orderBy != null) sql += ' ORDER BY $orderBy';
-    List<Map<String, dynamic>> maps = await SQL.SqliteController.database.rawQuery(sql).catchError((error, stack) {
+    List<Map<String, dynamic>> maps = await SQL.SqliteController.moorBridge.rawQuery(sql).catchError((error, stack) {
       throw Exception(error.toString());
     });
     List<Clasp> results = List();
@@ -170,7 +170,7 @@ class Clasp extends SQL.SQLParse<Clasp> {
        wasAHit = $wasAHit
      WHERE $clause''';
 
-    return await SQL.SqliteController.database.rawUpdate(sql);
+    return await SQL.SqliteController.moorBridge.rawUpdate(sql);
   }
 
   ///- Create Delete
@@ -179,7 +179,7 @@ class Clasp extends SQL.SQLParse<Clasp> {
     final clause = where ?? link?.clause;
     String sql = 'DELETE FROM CLASP ';
     if (where != null) sql = '$sql WHERE $clause';
-    return await SQL.SqliteController.database.rawDelete(sql);
+    return await SQL.SqliteController.moorBridge.rawDelete(sql);
   }
 
   ///- **************** END Sqlite C.R.U.D.  {Create, Read, Update, Delete}
@@ -237,7 +237,7 @@ class Clasp extends SQL.SQLParse<Clasp> {
           wasAHit INTEGER
           )''';
 
-    await SQL.SqliteController.database.execute(create);
+    await SQL.SqliteController.moorBridge.execute(create);
     return null;
   }
 
@@ -250,7 +250,7 @@ class Clasp extends SQL.SQLParse<Clasp> {
     await createTable();
     final whereClause = (clause == null) ? '' : 'WHERE $clause';
     final sql = 'SELECT COUNT("rowid") FROM Clasp $whereClause';
-    return Sqflite.firstIntValue(await SQL.SqliteController.database.rawQuery(sql));
+    return Sqflite.firstIntValue(await SQL.SqliteController.moorBridge.rawQuery(sql));
   }
 
   ///- SQL First record of query

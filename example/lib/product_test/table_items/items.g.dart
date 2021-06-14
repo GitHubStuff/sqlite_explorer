@@ -147,7 +147,7 @@ class Items extends SQL.SQLParse<Items>{
          "$_songTitle"
      )''';
 
-     int newRowid = await SQL.SqliteController.database.rawInsert(sql);
+     int newRowid = await SQL.SqliteController.moorBridge.rawInsert(sql);
      this.rowid = newRowid;
      return this.rowid;
    }
@@ -159,7 +159,7 @@ class Items extends SQL.SQLParse<Items>{
     String sql = 'SELECT rowid,* from ITEMS';
     if (clause != null) sql += ' WHERE $clause';
     if (orderBy != null) sql += ' ORDER BY $orderBy';
-    List<Map<String,dynamic>> maps = await SQL.SqliteController.database.rawQuery(sql).catchError((error, stack) {
+    List<Map<String,dynamic>> maps = await SQL.SqliteController.moorBridge.rawQuery(sql).catchError((error, stack) {
        throw Exception(error.toString());
     });
     List<Items> results = List();
@@ -185,7 +185,7 @@ class Items extends SQL.SQLParse<Items>{
        songTitle = "$songTitle"
      WHERE $clause''';
 
-     return await SQL.SqliteController.database.rawUpdate(sql);
+     return await SQL.SqliteController.moorBridge.rawUpdate(sql);
    }
 
    ///- Create Delete
@@ -194,7 +194,7 @@ class Items extends SQL.SQLParse<Items>{
       final clause = where ?? link?.clause;
       String sql = 'DELETE FROM ITEMS ';
       if (where != null) sql = '$sql WHERE $clause';
-      return await SQL.SqliteController.database.rawDelete(sql);
+      return await SQL.SqliteController.moorBridge.rawDelete(sql);
    }
    ///- **************** END Sqlite C.R.U.D.  {Create, Read, Update, Delete}
    ///- **************** BEGINS Sqlite C.R.U.D. for linked records
@@ -273,7 +273,7 @@ class Items extends SQL.SQLParse<Items>{
           songTitle TEXT
           )''';
 
-       await SQL.SqliteController.database.execute(create);
+       await SQL.SqliteController.moorBridge.execute(create);
        return null;
    }
 
@@ -286,7 +286,7 @@ class Items extends SQL.SQLParse<Items>{
     await createTable();
     final whereClause = (clause == null) ? '' : 'WHERE $clause';
     final sql = 'SELECT COUNT("rowid") FROM Items $whereClause';
-    return Sqflite.firstIntValue(await SQL.SqliteController.database.rawQuery(sql));
+    return Sqflite.firstIntValue(await SQL.SqliteController.moorBridge.rawQuery(sql));
   }
 
    ///- SQL First record of query

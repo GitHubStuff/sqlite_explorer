@@ -1,7 +1,7 @@
 name: example_developer
 description: An example app for flutter_sqflite_manager
+publish_to: none
 # Paste just below 'description:'
-
 version: 0.0.4
 
 environment:
@@ -9,19 +9,15 @@ environment:
   flutter: ">=1.22.0"
 
 dependencies:
-  after_layout: ^1.0.7+2
-  auto_size_text: ^2.1.0
-  cupertino_icons: ^1.0.0
   flutter:
     sdk: flutter
   sqlite_explorer:
     path: ../
-  hud_scaffold:
-    path: ../hud_scaffold
-  shared_preferences: ^0.5.7+2
-  sqlite_controller:
-    path: ../sqlite_controller
-  sqflite: ^1.3.0+1
+  after_layout: ^1.1.0
+  auto_size_text: ^2.1.0
+  cupertino_icons: ^1.0.3
+  shared_preferences: ^2.0.6
+  sqflite: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
