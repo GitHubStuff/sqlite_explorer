@@ -48,11 +48,7 @@ class _TablesPageState extends State<TablesPage> {
   /// - sql: TEXT
   Future<void> _getTables() async {
     if (widget.moorBridge.isOpen) {
-      var tablesRows = await widget.moorBridge.query(
-        'sqlite_master',
-        where: 'type = ?',
-        whereArgs: ['table'],
-      );
+      var tablesRows = await widget.moorBridge.getTables();
       final tables = tablesRows.map((table) => TableItem(table['name'] as String, table['sql'] as String)).toList();
       _streamController.sink.add(tables);
     } else {
