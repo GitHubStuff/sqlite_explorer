@@ -27,11 +27,18 @@ class MoorBridge {
   Future<void> delete({required String tableName}) async {}
 
   Future<List<Map<String, Object?>>> getTables() async {
-    // final sql = "SELECT * FROM sqlite_master WHERE type = 'table'";
-    // final result = generatedDatabase.customSelect(sql);
-    Iterable<TableInfo> tables = generatedDatabase.allTables;
-    final List<Map<String, Object?>> info = tables.map((tableInfo) => {tableInfo.actualTableName: tableInfo.tableName}).toList();
-    return info;
+    final sql = "SELECT * FROM sqlite_master WHERE type = 'table'";
+    Selectable<QueryRow> result = generatedDatabase.customSelect(sql);
+    List<Object> list = await result.get();
+    List<Map<String, Object?>> product = [{}];
+    list.forEach((element) {
+      product.add({element.toString(): element.toString()});
+    });
+
+    return product;
+    // Iterable<TableInfo> tables = generatedDatabase.allTables;
+    // final List<Map<String, Object?>> info = tables.map((tableInfo) => {tableInfo.actualTableName: tableInfo.tableName}).toList();
+    // return info;
   }
 
   Future<List<Map<String, Object?>>> query(
