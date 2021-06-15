@@ -20,7 +20,7 @@ class TablesPage extends StatefulWidget {
     Key? key,
     required this.moorBridge,
     this.onDatabaseDeleted,
-    this.rowsPerPage = 6,
+    this.rowsPerPage = 10,
   }) : super(key: key);
 
   _TablesPageState createState() => _TablesPageState();

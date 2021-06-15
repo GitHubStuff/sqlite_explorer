@@ -1,4 +1,4 @@
-/// Gateway widget to view SQLite databases
+// Gateway widget to view SQLite databases
 import 'package:flutter/material.dart';
 import 'package:sqlite_explorer/src/moor_bridge.dart';
 import 'package:tracers_package/tracers.dart';
