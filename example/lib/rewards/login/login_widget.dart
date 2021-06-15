@@ -40,15 +40,15 @@ class _LoginWidget extends ObservingStatefulWidget<LoginWidget> {
 
   Widget _quickBody(BuildContext context) {
     final moorBridge = Modular.get<MoorBridge>();
-    return SqliteScreenWidget(childWidget: Center(child: Text('Buuuuuurrrrrrrp')), enabled: true, moorBridge: moorBridge);
+    return SqliteScreenWidget(childWidget: _body(), enabled: true, moorBridge: moorBridge);
   }
 
-  Widget _body(BuildContext context) {
+  Widget _body() {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Ah Ha!'),
+          Text('Login Spot'),
         ],
       ),
     );

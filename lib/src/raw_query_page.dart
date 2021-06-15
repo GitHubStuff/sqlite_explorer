@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqlite_explorer/src/moor_bridge.dart';
+import 'package:theme_manager/theme_manager.dart';
 
 import '../sqlite_explorer.dart';
 
@@ -47,7 +48,7 @@ class _RawQueryPageState extends State<RawQueryPage> {
         _isQueryRunning = true;
       });
 
-      final result = await widget.moorBridge.rawQuery(query);
+      final result = await widget.moorBridge.rawSql(query);
 
       setState(() {
         _result = result;
@@ -64,9 +65,9 @@ class _RawQueryPageState extends State<RawQueryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: modeView.of(context: context),
+      //backgroundColor: modeView.of(context: context),
       appBar: AppBar(
-        backgroundColor: modeView.of(context: context),
+        backgroundColor: Colors.blueGrey, //modeView.of(context: context),
         iconTheme: IconThemeData(color: modeView.of(context: context)),
         elevation: 0.0,
       ),
@@ -83,7 +84,14 @@ class _RawQueryPageState extends State<RawQueryPage> {
             controller: _sqlQueryController,
             decoration: InputDecoration(
               hintText: "SQL Query",
-              border: OutlineInputBorder(),
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                color: ThemeColors(
+                  dark: Colors.grey,
+                  light: Colors.green,
+                ).of(context: context),
+                width: 2,
+              )),
             ),
           ),
           _buildCommandBar(),

@@ -50,15 +50,25 @@ class MoorBridge {
     int? offset,
   }) async {
     final List<Map<String, Object>> result = [
-      {'data': 1}
+      {'DUMMY DATA': 1}
     ];
     return result;
   }
 
   Future<List<Map<String, Object?>>> rawQuery(String sql, [List<Object?>? arguments]) async {
     final List<Map<String, Object?>> result = [
-      {'data': 1}
+      {'MORE DUMMY DATA': 1}
     ];
     return result;
+  }
+
+  Future<List<Map<String, Object?>>> rawSql(String sql) async {
+    Selectable<QueryRow> result = generatedDatabase.customSelect(sql);
+    List<QueryRow> list = await result.get();
+    List<Map<String, dynamic>> product = [];
+    list.forEach((QueryRow element) {
+      product.add(element.data);
+    });
+    return product;
   }
 }

@@ -1,8 +1,10 @@
 // Show a single table
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:sqlite_explorer/sqlite_explorer.dart';
 import 'package:sqlite_explorer/src/moor_bridge.dart';
 import 'package:theme_manager/theme_manager.dart';
-import 'package:tracers_package/tracers.dart';
 
 import 'fsm_datasource.dart';
 import 'structure_page.dart';
@@ -18,7 +20,7 @@ class TablePage extends StatefulWidget {
     required this.tableName,
     required this.moorBridge,
     required this.sql,
-    this.rowsPerPage = 6,
+    this.rowsPerPage = 8,
   }) : super(key: key);
 
   _TablePageState createState() => _TablePageState(this.tableName);
@@ -42,7 +44,6 @@ class _TablePageState extends State<TablePage> {
   @override
   Widget build(BuildContext context) {
     final backgroundColor = ThemeColors(light: Colors.white, dark: Colors.grey).of(context: context);
-    final dataColors = ThemeColors(light: Colors.black87, dark: Colors.white70).of(context: context);
     return WillPopScope(
       onWillPop: () async {
         if (Navigator.of(context).userGestureInProgress)
@@ -55,6 +56,7 @@ class _TablePageState extends State<TablePage> {
           color: backgroundColor,
           child: Column(
             children: <Widget>[
+              /// 'Clear table', 'Refresh', 'Structure' buttons
               Container(
                 child: Wrap(
                   children: <Widget>[
@@ -94,28 +96,15 @@ class _TablePageState extends State<TablePage> {
               ),
               Expanded(
                 child: Container(
-                  color: Colors.purpleAccent, //Colors.transparent,
+                  color: Colors.transparent,
                   child: SingleChildScrollView(
                     physics: ClampingScrollPhysics(),
-                    child: _columns.isNotEmpty
-                        ? ColorFiltered(
-                            colorFilter: ColorFilter.mode(Colors.greenAccent, BlendMode.colorBurn),
-                            child: PaginatedDataTable(
-                              rowsPerPage: widget.rowsPerPage,
-                              columns: _columns,
-                              header: Text(
-                                widget.tableName,
-                                style: TextStyle(color: dataColors),
-                              ),
-                              source: _dataSource,
-                            ),
-                          )
-                        : Container(
-                            color: Colors.yellow,
-                          ),
+                    child: _dataColumns(),
                   ),
                 ),
               ),
+
+              /// Back/pop button
               Container(
                 padding: EdgeInsets.all(20),
                 alignment: Alignment.bottomLeft,
@@ -133,8 +122,45 @@ class _TablePageState extends State<TablePage> {
     );
   }
 
+  Widget _dataColumns() {
+    final bloc = Modular.get<BuildCubit>();
+    final headerColors = ThemeColors(
+      light: Colors.black,
+      dark: Colors.white,
+    ).of(context: context);
+    final dataColors = ThemeColors(
+      dark: Colors.yellow,
+      light: Colors.blue[800]!,
+    );
+    return BlocBuilder<BuildCubit, BuildState>(
+      bloc: bloc,
+      builder: (context, state) {
+        if (state is BuildInitial) return CircularProgressIndicator(color: Colors.red);
+        if (state is BuiltColumns) {
+          _columns = state.columns;
+          return _columns.isNotEmpty
+              ? ColorFiltered(
+                  colorFilter: ColorFilter.mode(Colors.black87, BlendMode.colorBurn),
+                  child: PaginatedDataTable(
+                    rowsPerPage: widget.rowsPerPage,
+                    columns: _columns,
+                    header: Text(
+                      widget.tableName,
+                      style: TextStyle(color: headerColors),
+                    ),
+                    source: _dataSource,
+                  ),
+                )
+              : Container(color: dataColors.of(context: context));
+        }
+        return Text('Huh?');
+      },
+    );
+  }
+
   _getData() {
-    widget.moorBridge.query(widget.tableName, orderBy: 'rowid').then((rows) {
+    final sql = "SELECT * FROM ${widget.tableName} ORDER BY rowid";
+    widget.moorBridge.rawSql(sql).then((rows) {
       if (rows.length > 0) {
         List<List<String>> list = [];
 
@@ -150,13 +176,15 @@ class _TablePageState extends State<TablePage> {
   }
 
   _getColumns() async {
-    print(this.tableName);
-    var rows = widget.moorBridge.rawQuery("select group_concat(name, '|') from pragma_table_info('${this.tableName}')");
-    var cleanedRows = await rows;
+    var rows = await widget.moorBridge.rawSql("select group_concat(name, '|') from pragma_table_info('${this.tableName}')");
+    var cleanedRows = rows;
     var columnsString = cleanedRows.toString().replaceAll("[{group_concat(name, '|'): ", "").replaceAll("}]", "");
     var column = columnsString.toString().split("|");
-    final columnNameColor = Colors.yellowAccent;
-    Log.T('columnNameColor ${columnNameColor.toString()}');
+    final columnNameColor = ThemeColors(
+      dark: Colors.yellowAccent,
+      light: Colors.green[800]!,
+    ).of(context: context);
+    _columns = [];
     _columns.addAll(column.map((key) {
       return DataColumn(
         label: Text(
@@ -165,5 +193,7 @@ class _TablePageState extends State<TablePage> {
         ),
       );
     }).toList());
+    final bloc = Modular.get<BuildCubit>();
+    bloc.dataReady(_columns);
   }
 }
