@@ -70,12 +70,12 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
                         Padding(
                           padding: const EdgeInsets.all(2.0),
                           child: ElevatedButton(
+                            child: Text("Clear table", style: Theme.of(context).textTheme.button),
                             onPressed: () {
                               widget.moorBridge.clear(table: widget.tableName).then((value) {
                                 _getData();
                               });
                             },
-                            child: Text("Clear table", style: Theme.of(context).textTheme.button),
                           ),
                         ),
                         Padding(
@@ -91,12 +91,12 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
                         Padding(
                           padding: const EdgeInsets.all(2.0),
                           child: ElevatedButton(
+                            child: Text("Structure", style: Theme.of(context).textTheme.button),
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                                 return StructurePage(sql: widget.sql);
                               }));
                             },
-                            child: Text("Structure", style: Theme.of(context).textTheme.button),
                           ),
                         )
                       ],
