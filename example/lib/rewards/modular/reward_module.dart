@@ -8,9 +8,10 @@ import '../login/login_widget.dart';
 class RewardModule extends Module {
   @override
   final List<Bind> binds = [
-    Bind.singleton((i) => RewardsDatabase()),
+    Bind.factory((i) => ActivityContentDao(i())),
     Bind.factory((i) => MoorBridge(dbName: K.dbName, generatedDatabase: i())),
     Bind.singleton((i) => BuildCubit()),
+    Bind.singleton((i) => RewardsDatabase()),
   ];
 
   @override

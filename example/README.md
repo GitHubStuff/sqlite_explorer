@@ -1,6 +1,5 @@
-# example
+# sqlite_reporter
 
-An example app for flutter_sqlite_manager
+An sqlite_reporter app for flutter_sqlite_manager
 
 ## Getting Started
-

@@ -26,6 +26,11 @@ class MoorBridge {
 
   Future<void> delete({required String tableName}) async {}
 
+  Future<void> clear({required String table}) async {
+    final sql = 'DELETE FROM $table';
+    await generatedDatabase.customWriteReturning(sql);
+  }
+
   Future<List<Map<String, Object?>>> getTables() async {
     final sql = "SELECT * FROM sqlite_master WHERE type = 'table'";
     Selectable<QueryRow> result = generatedDatabase.customSelect(sql);

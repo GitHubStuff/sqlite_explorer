@@ -27,9 +27,11 @@ LazyDatabase _openConnection() {
 
 @UseMoor(tables: [
   ActivityContents,
-  ActivityProgression,
-  ActivityVersions,
-  ActivityPerMembers,
+  // ActivityProgression,
+  // ActivityVersions,
+  // ActivityPerMembers,
+], daos: [
+  ActivityContentDao,
 ])
 class RewardsDatabase extends _$RewardsDatabase {
   RewardsDatabase() : super(_openConnection());
@@ -37,16 +39,28 @@ class RewardsDatabase extends _$RewardsDatabase {
   int get schemaVersion => 1;
 }
 
+@UseDao(tables: [ActivityContents])
+class ActivityContentDao extends DatabaseAccessor<RewardsDatabase> with _$ActivityContentDaoMixin {
+  final RewardsDatabase db;
+  ActivityContentDao(this.db) : super(db);
+
+  Future<List<ActivityContent>> getAllTasks() => select(activityContents).get();
+  Stream<List<ActivityContent>> watchAllTasks() => select(activityContents).watch();
+  Future insertTask(Insertable<ActivityContent> activityContent) => into(activityContents).insert(activityContent);
+  Future updateTask(Insertable<ActivityContent> activityContent) => update(activityContents).replace(activityContent);
+  Future deleteTask(Insertable<ActivityContent> activityContent) => delete(activityContents).delete(activityContent);
+}
+
 ///++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 class ActivityContents extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
   TextColumn get amount => text().withLength(min: 1, max: _amountLength)();
-  TextColumn get confirmationCancel => text().withLength(min: 7, max: _defaultColumnWidth)();
-  TextColumn get confirmationSave => text().withLength(min: 4, max: _defaultColumnWidth)();
-  TextColumn get confirmationTitle => text().withLength(min: 5, max: _defaultColumnWidth)();
+  TextColumn get confirmationCancel => text().withLength(min: 1, max: _defaultColumnWidth)();
+  TextColumn get confirmationSave => text().withLength(min: 1, max: _defaultColumnWidth)();
+  TextColumn get confirmationTitle => text().withLength(min: 1, max: _defaultColumnWidth)();
   TextColumn get dateCompleteCaption => text().withLength(min: 4, max: _dateTimeLength)();
-  TextColumn get dateFormat => text().withLength(min: 4, max: 15).withDefault(Constant('MM-dd-yyy'))();
+  TextColumn get dateFormat => text().withLength(min: 1, max: 15).withDefault(Constant('MM-dd-yyy'))();
   TextColumn get details => text().withLength(min: 1, max: _maxColumnWidth)();
   TextColumn get imageUrl => text().withLength(min: 1, max: _maxColumnWidth)();
   TextColumn get language => text().withLength(min: 2, max: 2)();
@@ -55,35 +69,35 @@ class ActivityContents extends Table {
   TextColumn get setDateCaption => text().withLength(min: 1, max: _defaultColumnWidth)();
   TextColumn get spinnerMessage => text().withLength(min: 1, max: _defaultColumnWidth)();
   TextColumn get title => text().withLength(min: 1, max: _defaultColumnWidth)();
-  TextColumn get validFrom => text().withLength(min: 10, max: _dateTimeLength)();
-  TextColumn get validUntil => text().withLength(min: 10, max: _dateTimeLength)();
+  TextColumn get validFrom => text().withLength(min: 1, max: _dateTimeLength)();
+  TextColumn get validUntil => text().withLength(min: 1, max: _dateTimeLength)();
 }
 
 ///++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-@DataClassName('ActivityProgress')
-class ActivityProgression extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
-  TextColumn get amount => text().withLength(min: 1, max: _amountLength)();
-  TextColumn get dateCompleted => text().withLength(min: 8, max: _dateTimeLength)();
-  TextColumn get memberId => text().withLength(min: 4, max: _memberIdLength)();
-  IntColumn get sequenceNumber => integer().withDefault(Constant(1))();
-}
+// @DataClassName('ActivityProgress')
+// class ActivityProgression extends Table {
+//   IntColumn get id => integer().autoIncrement()();
+//   TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
+//   TextColumn get amount => text().withLength(min: 1, max: _amountLength)();
+//   TextColumn get dateCompleted => text().withLength(min: 8, max: _dateTimeLength)();
+//   TextColumn get memberId => text().withLength(min: 4, max: _memberIdLength)();
+//   IntColumn get sequenceNumber => integer().withDefault(Constant(1))();
+// }
 
 ///++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class ActivityVersions extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
-  TextColumn get timeStamp => text().withLength(min: 1, max: _dateTimeLength)();
-  TextColumn get title => text().withLength(min: 1, max: _defaultColumnWidth)();
-}
+// class ActivityVersions extends Table {
+//   IntColumn get id => integer().autoIncrement()();
+//   TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
+//   TextColumn get timeStamp => text().withLength(min: 1, max: _dateTimeLength)();
+//   TextColumn get title => text().withLength(min: 1, max: _defaultColumnWidth)();
+// }
 
 ///++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-class ActivityPerMembers extends Table {
-  IntColumn get id => integer().autoIncrement()();
-  TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
-  TextColumn get endingDate => text().withLength(min: 1, max: _dateTimeLength)();
-  TextColumn get memberId => text().withLength(min: 4, max: _memberIdLength)();
-  TextColumn get memberName => text().withLength(min: 1, max: _defaultColumnWidth)();
-  TextColumn get startingDate => text().withLength(min: 1, max: _dateTimeLength)();
-}
+// class ActivityPerMembers extends Table {
+//   IntColumn get id => integer().autoIncrement()();
+//   TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
+//   TextColumn get endingDate => text().withLength(min: 1, max: _dateTimeLength)();
+//   TextColumn get memberId => text().withLength(min: 4, max: _memberIdLength)();
+//   TextColumn get memberName => text().withLength(min: 1, max: _defaultColumnWidth)();
+//   TextColumn get startingDate => text().withLength(min: 1, max: _dateTimeLength)();
+// }

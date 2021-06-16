@@ -64,7 +64,7 @@ class _TablePageState extends State<TablePage> {
                       padding: const EdgeInsets.all(2.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          widget.moorBridge.delete(tableName: widget.tableName).then((value) {
+                          widget.moorBridge.clear(table: widget.tableName).then((value) {
                             _getData();
                           });
                         },
@@ -140,7 +140,10 @@ class _TablePageState extends State<TablePage> {
           _columns = state.columns;
           return _columns.isNotEmpty
               ? ColorFiltered(
-                  colorFilter: ColorFilter.mode(Colors.black87, BlendMode.colorBurn),
+                  colorFilter: ColorFilter.mode(
+                    Colors.black87,
+                    BlendMode.colorBurn,
+                  ),
                   child: PaginatedDataTable(
                     rowsPerPage: widget.rowsPerPage,
                     columns: _columns,

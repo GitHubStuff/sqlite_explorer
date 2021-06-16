@@ -1,0 +1,282 @@
+[
+  {
+    "_id": "60c767f1ee54ef0012e53378",
+    "activityId": "8ddae7f1-0f77-41ab-9a59-021d17cf85e5",
+    "amount": "$10.00",
+    "confirmationCancel": "Cancelar",
+    "confirmationContent": "Confirmar",
+    "confirmationSave": "Ahorrar",
+    "confirmationTitle": "Cargar información",
+    "dateCompleteCaption": "Fecha de visita",
+    "dateFormat": "MM-dd-yyyy",
+    "details": "Evaluación completa de la salud personal",
+    "imageUrl": "none",
+    "language": "es",
+    "rewardType": "reduction",
+    "sequences": 1,
+    "setDateCaption": "Define la fecha",
+    "spinnerMessage": "Subiendo",
+    "title": "PHA completo",
+    "validFrom": "2021-01-01",
+    "validUntil": "2021-04-01",
+    "_acl": {
+      "creator": "kid_rk7CWpu8w"
+    },
+    "_kmd": {
+      "lmt": "2021-06-14T14:30:09.984Z",
+      "ect": "2021-06-14T14:30:09.984Z"
+    }
+  },
+  {
+    "_id": "60c767f12ad935001300c186",
+    "activityId": "fa07fba2-a8f7-4b28-8d6f-7f3605560cbd",
+    "amount": "$25.00",
+    "confirmationCancel": "Cancelar",
+    "confirmationContent": "Confirmar",
+    "confirmationSave": "Ahorrar",
+    "confirmationTitle": "Cargar información",
+    "dateCompleteCaption": "Fecha de finalización",
+    "dateFormat": "MM-dd-yyyy",
+    "details": "Mire cinco (5) videos y / o visite el lugar de acondicionamiento físico preferido de FHCP cinco (5) veces.",
+    "imageUrl": "none",
+    "language": "es",
+    "rewardType": "reduction",
+    "sequences": 5,
+    "setDateCaption": "Define la fecha",
+    "spinnerMessage": "Subiendo",
+    "title": "Participe en la actividad de bienestar de FHCP",
+    "validFrom": "2021-04-01",
+    "validUntil": "2021-07-01",
+    "_acl": {
+      "creator": "kid_rk7CWpu8w"
+    },
+    "_kmd": {
+      "lmt": "2021-06-14T14:30:09.986Z",
+      "ect": "2021-06-14T14:30:09.986Z"
+    }
+  },
+  {
+    "_id": "60c767f1613b450013d992db",
+    "activityId": "8ddae7f1-0f77-41ab-9a59-021d17cf85e5",
+    "amount": "$10.00",
+    "confirmationCancel": "Cancel",
+    "confirmationContent": "Confirm",
+    "confirmationSave": "Save",
+    "confirmationTitle": "Upload information",
+    "dateCompleteCaption": "Date of visit",
+    "dateFormat": "MM-dd-yyyy",
+    "details": "Complete Personal Health Assessment",
+    "imageUrl": "none",
+    "language": "en",
+    "rewardType": "reduction",
+    "sequences": 1,
+    "setDateCaption": "Set Date",
+    "spinnerMessage": "Uploading",
+    "title": "Complete PHA",
+    "validFrom": "2021-01-01",
+    "validUntil": "2021-04-01",
+    "_acl": {
+      "creator": "kid_rk7CWpu8w"
+    },
+    "_kmd": {
+      "lmt": "2021-06-14T14:30:09.986Z",
+      "ect": "2021-06-14T14:30:09.986Z"
+    }
+  },
+  {
+    "_id": "60c767f124e8540012c1bf05",
+    "activityId": "9a6f91f1-6a2f-4e0e-b6a7-f8e904d9520a",
+    "amount": "$10.00",
+    "confirmationCancel": "Cancelar",
+    "confirmationContent": "Confirmar",
+    "confirmationSave": "Ahorrar",
+    "confirmationTitle": "Cargar información",
+    "dateCompleteCaption": "Fecha de visita",
+    "dateFormat": "MM-dd-yyyy",
+    "details": "Completar una visita con un médico de atención primaria",
+    "imageUrl": "none",
+    "language": "es",
+    "rewardType": "reduction",
+    "sequences": 1,
+    "setDateCaption": "Define la fecha",
+    "spinnerMessage": "Subiendo",
+    "title": "Visite el PCP",
+    "validFrom": "2021-01-01",
+    "validUntil": "2021-04-01",
+    "_acl": {
+      "creator": "kid_rk7CWpu8w"
+    },
+    "_kmd": {
+      "lmt": "2021-06-14T14:30:09.985Z",
+      "ect": "2021-06-14T14:30:09.985Z"
+    }
+  },
+  {
+    "_id": "60c767f1ee54ef0012e53379",
+    "activityId": "f1d58f4c-1fbf-46c1-9c5f-3999bdffdcea",
+    "amount": "$25.00",
+    "confirmationCancel": "Cancelar",
+    "confirmationContent": "Confirmar",
+    "confirmationSave": "Ahorrar",
+    "confirmationTitle": "Cargar información",
+    "dateCompleteCaption": "Date Completed",
+    "dateFormat": "MM-dd-yyyy",
+    "details": "Obtenga una vacuna contra la influenza o COVID-19",
+    "imageUrl": "none",
+    "language": "es",
+    "rewardType": "reduction",
+    "sequences": 1,
+    "setDateCaption": "Define la fecha",
+    "spinnerMessage": "Subiendo",
+    "title": "Vacunarse",
+    "validFrom": "2021-07-01",
+    "validUntil": "2021-10-01",
+    "_acl": {
+      "creator": "kid_rk7CWpu8w"
+    },
+    "_kmd": {
+      "lmt": "2021-06-14T14:30:09.988Z",
+      "ect": "2021-06-14T14:30:09.988Z"
+    }
+  },
+  {
+    "_id": "60c767f1358c9600137f5f52",
+    "activityId": "f1d58f4c-1fbf-46c1-9c5f-3999bdffdcea",
+    "amount": "$25.00",
+    "confirmationCancel": "Cancel",
+    "confirmationContent": "Confirm",
+    "confirmationSave": "Save",
+    "confirmationTitle": "Upload information",
+    "dateCompleteCaption": "Date Completed",
+    "dateFormat": "MM-dd-yyyy",
+    "details": "Get a Flu or COVID-19 Vaccine",
+    "imageUrl": "none",
+    "language": "en",
+    "rewardType": "reduction",
+    "sequences": 1,
+    "setDateCaption": "Set Date",
+    "spinnerMessage": "Uploading",
+    "title": "Get Vaccinated",
+    "validFrom": "2021-07-01",
+    "validUntil": "2021-10-01",
+    "_acl": {
+      "creator": "kid_rk7CWpu8w"
+    },
+    "_kmd": {
+      "lmt": "2021-06-14T14:30:09.987Z",
+      "ect": "2021-06-14T14:30:09.987Z"
+    }
+  },
+  {
+    "_id": "60c767f12ad935001300c185",
+    "activityId": "ba43bd92-f5b5-4e80-86fc-14e5d67be327",
+    "amount": "$5.00",
+    "confirmationCancel": "Cancelar",
+    "confirmationContent": "Confirmar",
+    "confirmationSave": "Ahorrar",
+    "confirmationTitle": "Cargar información",
+    "dateCompleteCaption": "Fecha de finalización",
+    "dateFormat": "MM-dd-yyyy",
+    "details": "Toma módulos educativos",
+    "imageUrl": "none",
+    "language": "es",
+    "rewardType": "reduction",
+    "sequences": 1,
+    "setDateCaption": "Define la fecha",
+    "spinnerMessage": "Subiendo",
+    "title": "Módulos de educación",
+    "validFrom": "2021-01-01",
+    "validUntil": "2021-04-01",
+    "_acl": {
+      "creator": "kid_rk7CWpu8w"
+    },
+    "_kmd": {
+      "lmt": "2021-06-14T14:30:09.982Z",
+      "ect": "2021-06-14T14:30:09.982Z"
+    }
+  },
+  {
+    "_id": "60c767f10a4d9c001455fff5",
+    "activityId": "fa07fba2-a8f7-4b28-8d6f-7f3605560cbd",
+    "amount": "$25.00",
+    "confirmationCancel": "Cancel",
+    "confirmationContent": "Confirm",
+    "confirmationSave": "Save",
+    "confirmationTitle": "Upload information",
+    "dateCompleteCaption": "Date Completed",
+    "dateFormat": "MM-dd-yyyy",
+    "details": "Watch five(5) videos and/or visit FHCP Preferred Fitness Location five(5) times.",
+    "imageUrl": "none",
+    "language": "en",
+    "rewardType": "reduction",
+    "sequences": 5,
+    "setDateCaption": "Set Date",
+    "spinnerMessage": "Uploading",
+    "title": "Participate in FHCP Wellness Activity",
+    "validFrom": "2021-04-01",
+    "validUntil": "2021-07-01",
+    "_acl": {
+      "creator": "kid_rk7CWpu8w"
+    },
+    "_kmd": {
+      "lmt": "2021-06-14T14:30:09.985Z",
+      "ect": "2021-06-14T14:30:09.985Z"
+    }
+  },
+  {
+    "_id": "60c767f12ad935001300c187",
+    "activityId": "9a6f91f1-6a2f-4e0e-b6a7-f8e904d9520a",
+    "amount": "$10.00",
+    "confirmationCancel": "Cancel",
+    "confirmationContent": "Confirm",
+    "confirmationSave": "Save",
+    "confirmationTitle": "Upload information",
+    "dateCompleteCaption": "Date of visit",
+    "dateFormat": "MM-dd-yyyy",
+    "details": "Complete a visit with a Primary Care Doctor",
+    "imageUrl": "none",
+    "language": "en",
+    "rewardType": "reduction",
+    "sequences": 1,
+    "setDateCaption": "Set Date",
+    "spinnerMessage": "Uploading",
+    "title": "Visit PCP",
+    "validFrom": "2021-01-01",
+    "validUntil": "2021-04-01",
+    "_acl": {
+      "creator": "kid_rk7CWpu8w"
+    },
+    "_kmd": {
+      "lmt": "2021-06-14T14:30:09.989Z",
+      "ect": "2021-06-14T14:30:09.989Z"
+    }
+  },
+  {
+    "_id": "60c767f2613b450013d992dc",
+    "activityId": "ba43bd92-f5b5-4e80-86fc-14e5d67be327",
+    "amount": "$5.00",
+    "confirmationCancel": "Cancel",
+    "confirmationContent": "Confirm",
+    "confirmationSave": "Save",
+    "confirmationTitle": "Upload information",
+    "dateCompleteCaption": "Date Completed",
+    "dateFormat": "MM-dd-yyyy",
+    "details": "Take education modules",
+    "imageUrl": "none",
+    "language": "en",
+    "rewardType": "reduction",
+    "sequences": 1,
+    "setDateCaption": "Set Date",
+    "spinnerMessage": "Uploading",
+    "title": "Eduction Modules",
+    "validFrom": "2021-01-01",
+    "validUntil": "2021-04-01",
+    "_acl": {
+      "creator": "kid_rk7CWpu8w"
+    },
+    "_kmd": {
+      "lmt": "2021-06-14T14:30:09.981Z",
+      "ect": "2021-06-14T14:30:09.981Z"
+    }
+  }
+]
