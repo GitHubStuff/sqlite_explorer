@@ -43,7 +43,7 @@ class SqliteScreenWidget extends StatefulWidget {
     required this.childWidget,
     required this.enabled,
     required this.moorBridge,
-    this.rowsPerPage = 6,
+    this.rowsPerPage = 7,
     String? route,
   })  : assert(rowsPerPage > 4),
         super(key: key) {

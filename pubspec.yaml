@@ -9,6 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_extras:
+    git:
+      url: https://github.com/GitHubStuff/flutter_packages.git
+      path: flutter_extras
   json_decoder:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git

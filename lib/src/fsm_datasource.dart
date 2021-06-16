@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class FSMDataSource extends DataTableSource {
-  List<List<String>> _data = [];
+  List<List<Widget>> _data = [];
 
-  addData(List<List<String>> data) {
+  addData(List<List<Widget>> data) {
     _data.clear();
     _data.addAll(data);
     notifyListeners();
@@ -11,16 +11,11 @@ class FSMDataSource extends DataTableSource {
 
   @override
   DataRow getRow(int index) {
-    Color dataColors = Colors.white70;
-
+    debugPrint('INDEX: $index');
     return DataRow(
         cells: _data[index].map((cell) {
-      return DataCell(
-        Text(
-          cell,
-          style: TextStyle(color: dataColors),
-        ),
-      );
+      debugPrint('CELL ${cell.toString()}');
+      return DataCell(cell);
     }).toList());
   }
 

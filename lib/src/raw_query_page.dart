@@ -133,10 +133,11 @@ class _RawQueryPageState extends State<RawQueryPage> {
       child: PaginatedDataTable(
         columns: _result![0].keys.map((key) {
           return DataColumn(
-              label: Text(
-            key,
-            style: TextStyle(color: Colors.deepPurple),
-          ));
+            label: Text(
+              key,
+              style: TextStyle(color: Colors.deepPurple),
+            ),
+          );
         }).toList(),
         header: Text(
           'Result',

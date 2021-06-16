@@ -5,7 +5,8 @@ abstract class BuildState {}
 
 class BuildInitial extends BuildState {}
 
-class BuiltColumns extends BuildState {
+class BuildTable extends BuildState {
   final List<DataColumn> columns;
-  BuiltColumns(this.columns) : super();
+  final FSMDataSource dataSource;
+  BuildTable(this.columns, this.dataSource) : super();
 }
