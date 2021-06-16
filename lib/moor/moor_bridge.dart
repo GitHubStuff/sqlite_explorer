@@ -4,6 +4,7 @@ import 'package:path_provider/path_provider.dart';
 
 late String _dbPath;
 
+/// Links a Moor database to explorer
 class MoorBridge {
   final GeneratedDatabase generatedDatabase;
   bool _isOpen = true;
