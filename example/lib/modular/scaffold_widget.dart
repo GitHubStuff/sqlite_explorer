@@ -15,7 +15,7 @@ class ScaffoldWidget extends StatefulWidget {
 
 class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
   String message = 'Tap for Size';
-  String instruction = 'Tap + to change the text';
+  String instruction = 'Tap the FAB to "Go To DATABASE!!!"';
   String instruction2 = 'Tap again';
   bool _isFirst = true;
   @override
@@ -29,11 +29,13 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
       ),
       body: _body(context),
       floatingActionButton: FloatingActionButton(
+        key: UniqueKey(),
         onPressed: () {
-          Modular.to.navigate(LoginWidget.route);
+          //Modular.to.navigate(LoginWidget.route);
+          Modular.to.pushNamed(LoginWidget.route);
         },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
+        tooltip: 'map',
+        child: Icon(Icons.map),
       ),
     );
   }
@@ -49,9 +51,6 @@ class _ScaffoldWidget extends ObservingStatefulWidget<ScaffoldWidget> {
           WidgetSize(
             onChange: (Size size) {
               setState(() {
-                final height = context.height;
-                final width = context.width;
-                debugPrint('height: $height, width: $width $_isFirst');
                 message = 'Size - $size';
               });
             },

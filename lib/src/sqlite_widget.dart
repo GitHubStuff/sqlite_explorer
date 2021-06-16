@@ -1,7 +1,7 @@
 // NOTE: This widget should be used by SqliteScreenWidget and VERY VERY CAUTIOUSLY as child widget
 // of anything else without a lot more testing
 import 'package:flutter/material.dart';
-import 'package:sqlite_explorer/src/moor_bridge.dart';
+import 'package:sqlite_explorer/moor/moor_bridge.dart';
 
 import 'tables_page.dart';
 
@@ -31,7 +31,7 @@ class SqliteWidget extends StatefulWidget {
     this.iconAlignment = Alignment.bottomRight,
     required this.database,
     this.onDatabaseDeleted,
-    this.rowsPerPage = 6,
+    required this.rowsPerPage,
   }) : super(key: key);
 
   _SqliteWidgetState createState() => _SqliteWidgetState();
@@ -51,7 +51,7 @@ class _SqliteWidgetState extends State<SqliteWidget> {
     return SafeArea(
       child: Stack(
         children: <Widget>[
-          widget.child,
+          _showContent ? Container() : widget.child,
           Offstage(
             offstage: !_showContent,
             child: Navigator(
@@ -85,7 +85,7 @@ class _SqliteWidgetState extends State<SqliteWidget> {
                           width: _buttonSize,
                           height: _buttonSize,
                           child: Icon(
-                            Icons.storage,
+                            Icons.storage_sharp,
                             color: Colors.white,
                             size: 24.0,
                           )),

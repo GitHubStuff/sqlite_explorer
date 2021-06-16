@@ -16,13 +16,31 @@ class BuildCubit extends Cubit<BuildState> {
           light: Colors.red,
         ),
         forKey: K.circularProgressColor);
-
+    ThemeManager.defaultThemeColors(
+        ThemeColors(
+          dark: Colors.white70,
+          light: Colors.black,
+        ),
+        forKey: K.defaultTextColor);
     ThemeManager.defaultThemeColors(
         ThemeColors(
           dark: Colors.black,
           light: Colors.black38,
         ),
         forKey: K.dividerColor);
+    ThemeManager.defaultThemeColors(
+        ThemeColors(
+          dark: Colors.white,
+          light: Colors.black,
+        ),
+        forKey: K.iconColors);
+    ThemeManager.defaultThemeColors(
+        ThemeColors(
+          dark: Colors.white70,
+          light: Colors.black,
+        ),
+        forKey: K.modeColors);
+
     ThemeManager.defaultThemeColors(
         ThemeColors(
           dark: Colors.blueGrey,
@@ -49,7 +67,13 @@ class BuildCubit extends Cubit<BuildState> {
         ),
         forKey: K.tableHeaderColor);
     ThemeManager.defaultThemeColors(
-      ThemeColors.mono(color: Colors.amber),
+        ThemeColors(
+          dark: Colors.green[900]!,
+          light: Colors.white70,
+        ),
+        forKey: K.tableListBackgroundColor);
+    ThemeManager.defaultThemeColors(
+      ThemeColors(dark: Colors.black87, light: Colors.red),
       forKey: K.tableNameColor,
     );
   }

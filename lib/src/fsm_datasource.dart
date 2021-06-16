@@ -11,10 +11,8 @@ class FSMDataSource extends DataTableSource {
 
   @override
   DataRow getRow(int index) {
-    debugPrint('INDEX: $index');
     return DataRow(
         cells: _data[index].map((cell) {
-      debugPrint('CELL ${cell.toString()}');
       return DataCell(cell);
     }).toList());
   }

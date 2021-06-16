@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
-import 'package:sqlite_reporter/rewards/database/activity_contents.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:json_decoder/json_decoder.dart';
 import 'package:moor/moor.dart';
+import 'package:sqlite_reporter/rewards/database/activity_contents.dart';
+import 'package:tracers_package/tracers.dart';
 import 'package:xfer/xfer.dart';
 
 class ReadJson {
@@ -12,11 +12,11 @@ class ReadJson {
     Map<String, String> header = {'Content-Type': 'application/json'};
     Either<XferFailure, XferResponse> result = await Xfer().get(url, headers: header);
     result.fold(
-      (err) => debugPrint('ERROR: ${err.toString()}'),
+      (err) => Log.E('ReadJson ERROR: ${err.toString()}'),
       (data) {
         final Either<Exception, JsonDecoded> decode = JSONDecoder.decode(data.body, trace: true);
         decode.fold(
-          (l) => debugPrint('ERROR: ${l.toString()}'),
+          (l) => Log.E('ReadJson ERROR: ${l.toString()}'),
           (r) async {
             List<Map<String, dynamic>>? jsonList = r.jsonConvertListDynamic;
             if (jsonList != null) {
@@ -42,7 +42,6 @@ class ReadJson {
                   validFrom: Value(map['validFrom']),
                   validUntil: Value(map['validUntil']),
                 );
-                debugPrint("V: ${map['activityId']}");
                 await dao.insertTask(v);
               }
             }

@@ -2,11 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_extras/flutter_extras.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:sqlite_explorer/sqlite_explorer.dart';
-import 'package:sqlite_explorer/src/moor_bridge.dart';
 import 'package:theme_manager/theme_manager.dart';
 
+import '../../cubit/cubit_singleton.dart';
+import '../cubit/build_cubit.dart';
+import '../moor/moor_bridge.dart';
+import '../sqlite_explorer.dart';
 import 'constants.dart' as K;
 import 'fsm_datasource.dart';
 import 'structure_page.dart';
@@ -23,7 +24,7 @@ class TablePage extends StatefulWidget {
     required this.moorBridge,
     required this.sql,
     this.rowsPerPage = 8,
-  }) : super(key: key);
+  }) : super(key: key ?? UniqueKey());
 
   _TablePageState createState() => _TablePageState(this.tableName);
 }
@@ -38,9 +39,7 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
   }
 
   @override
-  void didChangePlatformBrightness() {
-    debugPrint('BRIGHTNESS CHANGED');
-  }
+  void didChangePlatformBrightness() {}
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +47,7 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
       bloc: ThemeManager.themeCubit,
       builder: (_, state) {
         if (state is UpdateThemeMode) {
-          final bloc = Modular.get<BuildCubit>();
-          bloc.refresh();
+          CubitSingleton().cubit.refresh();
         }
         return WillPopScope(
           onWillPop: () async {
@@ -83,8 +81,7 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
                           child: ElevatedButton(
                             child: Text("Refresh", style: Theme.of(context).textTheme.button),
                             onPressed: () {
-                              final bloc = Modular.get<BuildCubit>();
-                              bloc.refresh();
+                              CubitSingleton().cubit.refresh();
                             },
                           ),
                         ),
@@ -119,6 +116,7 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
                     padding: EdgeInsets.all(20),
                     alignment: Alignment.bottomLeft,
                     child: FloatingActionButton(
+                      key: UniqueKey(),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -137,11 +135,10 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
   }
 
   Widget _displayDataWithHeaders() {
-    final bloc = Modular.get<BuildCubit>();
+    final bloc = CubitSingleton().cubit;
     return BlocBuilder<BuildCubit, BuildState>(
       bloc: bloc,
       builder: (context, state) {
-        debugPrint('State: ${state.toString()}');
         if (state is BuildInitial) {
           Future.delayed(Duration(milliseconds: 500), () {
             _getData();
@@ -158,13 +155,14 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
                   child: Theme(
                     data: Theme.of(context).copyWith(
                       dividerColor: K.color(K.dividerColor, context),
+                      iconTheme: IconThemeData().copyWith(color: K.color(K.iconColors, context)),
                     ),
                     child: PaginatedDataTable(
                       rowsPerPage: widget.rowsPerPage,
                       columns: state.columns,
                       header: Text(
                         widget.tableName,
-                        style: TextStyle(color: K.color(K.tableNameColor, context)),
+                        style: TextStyle(color: K.color(K.tableNameColor, context), fontSize: 32.0),
                       ),
                       source: state.dataSource,
                     ),
@@ -223,8 +221,7 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
           );
         }).toList());
 
-        final bloc = Modular.get<BuildCubit>();
-        bloc.build(columnNames, data);
+        CubitSingleton().cubit.build(columnNames, data);
       },
     );
   }

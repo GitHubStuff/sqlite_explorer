@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sqlite_explorer/sqlite_explorer.dart';
-import 'package:sqlite_reporter/data/read_json.dart';
 import 'package:theme_manager/theme_manager.dart';
+
+import '../../data/read_json.dart';
 
 class LoginWidget extends StatefulWidget {
   static final String route = '/LoginWidget';
 
-  LoginWidget({Key? key, required this.title}) : super(key: key);
   final String title;
+  LoginWidget({Key? key, required this.title}) : super(key: key);
 
   @override
   _LoginWidget createState() => _LoginWidget();
@@ -26,25 +27,19 @@ class _LoginWidget extends ObservingStatefulWidget<LoginWidget> {
           ThemeControlWidget(),
         ],
       ),
-      body: _quickBody(context),
-      floatingActionButton: !_isFirst
-          ? null
-          : FloatingActionButton(
-              onPressed: () {
-                ReadJson().load();
-                setState(() {
-                  _isFirst = !_isFirst;
-                });
-              },
-              tooltip: 'Increment',
-              child: _isFirst ? Icon(Icons.add) : Icon(Icons.data_usage),
-            ),
+      body: _quickBody(),
+      floatingActionButton: FloatingActionButton(
+        key: UniqueKey(),
+        onPressed: () {
+          ReadJson().load();
+          setState(() {
+            _isFirst = !_isFirst;
+          });
+        },
+        tooltip: 'Increment',
+        child: _isFirst ? Icon(Icons.add) : Icon(Icons.data_usage),
+      ),
     );
-  }
-
-  Widget _quickBody(BuildContext context) {
-    final moorBridge = Modular.get<MoorBridge>();
-    return SqliteScreenWidget(childWidget: _body(), enabled: true, moorBridge: moorBridge);
   }
 
   Widget _body() {
@@ -52,9 +47,25 @@ class _LoginWidget extends ObservingStatefulWidget<LoginWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Login Spot'),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              'Tappling the "+" will add dummy records to the database, give it a try!',
+              style: TextStyle(fontSize: 24.0),
+            ),
+          ),
         ],
       ),
+    );
+  }
+
+  Widget _quickBody() {
+    final moorBridge = Modular.get<MoorBridge>();
+    return SqliteScreenWidget(
+      parentWidget: _body(),
+      enabled: true,
+      moorBridge: moorBridge,
+      rowsPerPage: 7,
     );
   }
 }

@@ -14,7 +14,7 @@ void main() async {
   /// Report flutter_bloc information to the console
   Bloc.observer = SimpleBlocObserver();
 
-  /// Enable theme changes/monitoring by creating a 'hive' object to persist information
+  /// Enable theme changes/monitoring by creating a 'hive' object to persist theme information
   await ThemeManager.setup();
   await Log.setTrace(baseLevel: LogLevel.All);
 

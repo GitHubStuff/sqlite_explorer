@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sqlite_explorer/src/moor_bridge.dart';
+import 'package:sqlite_explorer/moor/moor_bridge.dart';
 import 'package:theme_manager/theme_manager.dart';
 
 import '../sqlite_explorer.dart';
@@ -13,7 +13,7 @@ class RawQueryPage extends StatefulWidget {
   const RawQueryPage({
     Key? key,
     required this.moorBridge,
-    this.rowsPerPage = 5,
+    required this.rowsPerPage,
   }) : super(key: key);
 
   @override
@@ -56,12 +56,16 @@ class _RawQueryPage extends State<RawQueryPage> {
 
   @override
   Widget build(BuildContext context) {
-    sqlQueryController.text = 'SELECT * FROM activity_contents';
+    sqlQueryController.text = 'SELECT * FROM ';
     return Scaffold(
       //backgroundColor: modeView.of(context: context),
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey, //modeView.of(context: context),
-        iconTheme: IconThemeData(color: modeView.of(context: context)),
+        //backgroundColor: Colors.blueGrey, //modeView.of(context: context),
+        title: Text('Raw Query'),
+        actions: [
+          ThemeControlWidget(),
+        ],
+        iconTheme: IconThemeData(color: K.color(K.modeColors, context)),
         elevation: 0.0,
       ),
       body: _buildBody(),
@@ -118,7 +122,7 @@ class _RawQueryPage extends State<RawQueryPage> {
           },
           icon: Icon(
             Icons.close,
-            color: modeText.of(context: context),
+            color: K.color(K.defaultTextColor, context),
           ),
           label: Text(
             'Clear',
@@ -146,7 +150,7 @@ class _RawQueryPage extends State<RawQueryPage> {
               : null,
           icon: Icon(
             Icons.play_arrow,
-            color: Colors.white,
+            color: K.color(K.defaultTextColor, context),
           ),
         ),
       ],
@@ -187,6 +191,7 @@ class _RawQueryPage extends State<RawQueryPage> {
         child: Theme(
           data: Theme.of(context).copyWith(
             dividerColor: K.color(K.dividerColor, context),
+            iconTheme: IconThemeData().copyWith(color: K.color(K.iconColors, context)),
           ),
           child: PaginatedDataTable(
             columns: _result![0].keys.map((key) {

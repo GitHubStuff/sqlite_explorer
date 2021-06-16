@@ -3,8 +3,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as M;
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqlite_explorer/src/moor_bridge.dart';
+import 'package:sqlite_explorer/moor/moor_bridge.dart';
+import 'package:theme_manager/theme_manager.dart';
 
 import '../sqlite_explorer.dart';
 import 'constants.dart' as K;
@@ -21,19 +23,19 @@ class TablesPage extends StatefulWidget {
     Key? key,
     required this.moorBridge,
     this.onDatabaseDeleted,
-    this.rowsPerPage = 10,
+    required this.rowsPerPage,
   }) : super(key: key);
 
   _TablesPageState createState() => _TablesPageState();
 }
 
 class _TablesPageState extends State<TablesPage> {
-  final _streamController = StreamController<List<TableItem>>();
+  final streamController = StreamController<List<TableItem>>();
+  final Map<String, int> recordCounts = {};
 
   @override
   void initState() {
     super.initState();
-
     _getTables();
   }
 
@@ -48,13 +50,15 @@ class _TablesPageState extends State<TablesPage> {
   /// - rootpage: INTEGER
   /// - sql: TEXT
   Future<void> _getTables() async {
-    if (widget.moorBridge.isOpen) {
-      var tablesRows = await widget.moorBridge.getTables();
-      final tables = tablesRows.map((table) => TableItem(table['name'] as String, table['sql'] as String)).toList();
-      _streamController.sink.add(tables);
-    } else {
-      debugPrint("database closed");
+    if (!widget.moorBridge.isOpen) return;
+    var tablesRows = await widget.moorBridge.getTables();
+    final List<TableItem> tables = tablesRows.map((table) => TableItem(table['name'] as String, table['sql'] as String)).toList();
+    for (TableItem table in tables) {
+      int count = (await widget.moorBridge.recordCount(tableName: table.name))!;
+      recordCounts[table.name] = count;
     }
+
+    streamController.sink.add(tables);
   }
 
   @override
@@ -64,7 +68,7 @@ class _TablesPageState extends State<TablesPage> {
 
   Widget _body(BuildContext context) {
     return Container(
-      color: modeView.of(context: context),
+      color: K.color(K.tableListBackgroundColor, context),
       child: M.Column(
         children: <Widget>[
           Container(
@@ -89,7 +93,7 @@ class _TablesPageState extends State<TablesPage> {
                     onPressed: () {
                       var path = widget.moorBridge.path;
                       deleteDatabase(path).then((value) {
-                        _streamController.sink.add([]);
+                        streamController.sink.add([]);
                         widget.moorBridge.close();
                       });
                     },
@@ -99,12 +103,12 @@ class _TablesPageState extends State<TablesPage> {
                   padding: const EdgeInsets.all(2.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.of(context).push(
+                      Modular.to.push(
                         MaterialPageRoute(
                           builder: (context) {
                             return RawQueryPage(
                               moorBridge: widget.moorBridge,
-                              rowsPerPage: K.rawRecordCount(context),
+                              rowsPerPage: widget.rowsPerPage, // leave room at botton
                             );
                           },
                         ),
@@ -118,13 +122,18 @@ class _TablesPageState extends State<TablesPage> {
           ),
           Expanded(
             child: StreamBuilder<List<TableItem>>(
-              stream: _streamController.stream,
+              stream: streamController.stream,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return ListView(
                     children: snapshot.data!.map((table) {
                       return ListTile(
-                        title: Text(table.name, style: TextStyle(color: modeText.of(context: context))),
+                        title: Text(table.name,
+                            style: TextStyle(
+                              color: K.color(K.defaultTextColor, context),
+                              fontSize: TextKey.headline6.getFontSize,
+                            )),
+                        subtitle: Text('Records: ${recordCounts[table.name]}'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                             return TablePage(
@@ -135,7 +144,10 @@ class _TablesPageState extends State<TablesPage> {
                             );
                           }));
                         },
-                        trailing: Icon(Icons.art_track, color: modeText.of(context: context)),
+                        trailing: Icon(
+                          Icons.art_track,
+                          color: K.color(K.defaultTextColor, context),
+                        ),
                       );
                     }).toList(),
                   );
@@ -152,7 +164,7 @@ class _TablesPageState extends State<TablesPage> {
 
   @override
   void dispose() {
-    _streamController.close();
+    streamController.close();
     super.dispose();
   }
 }

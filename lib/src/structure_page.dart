@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:sqlite_explorer/cubit/cubit_singleton.dart';
 import 'package:theme_manager/theme_manager.dart';
 
-import '../sqlite_explorer.dart';
 import 'constants.dart' as K;
 
 class StructurePage extends StatefulWidget {
@@ -21,8 +20,7 @@ class _StructurePageState extends State<StructurePage> {
       bloc: ThemeManager.themeCubit,
       builder: (_, state) {
         if (state is UpdateThemeMode) {
-          final bloc = Modular.get<BuildCubit>();
-          bloc.refresh();
+          CubitSingleton().cubit.refresh();
         }
 
         var parse = widget.sql.split("(")[1];
@@ -49,6 +47,7 @@ class _StructurePageState extends State<StructurePage> {
               padding: EdgeInsets.all(20),
               alignment: Alignment.bottomLeft,
               child: FloatingActionButton(
+                key: UniqueKey(),
                 onPressed: () {
                   Navigator.pop(context);
                 },

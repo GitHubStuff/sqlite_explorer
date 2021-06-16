@@ -1,12 +1,13 @@
 // Gateway widget to view SQLite databases
 import 'package:flutter/material.dart';
-import 'package:sqlite_explorer/src/moor_bridge.dart';
 
+import '../cubit/cubit_singleton.dart';
+import '../moor/moor_bridge.dart';
 import 'sqlite_widget.dart';
 
 /// This is the default named for the routes defined in 'routes' of the MaterialApp, it can be overridden calling
 /// SqliteScreenWidget.setRoute(newName).
-const String _defaultRoute = '/dbScreen';
+const String _defaultRoute = '/sqliteExplorer';
 
 class SqliteScreenWidget extends StatefulWidget {
   /// To allow for Navigator to used named routes, the instance of this widget should include a route name to
@@ -23,7 +24,7 @@ class SqliteScreenWidget extends StatefulWidget {
   //--------------------------------------------------------------------------------------------------------------------------------
   /// This is the widget (the parent widget) that is passed so that normal flow can occur as well as display the Sqlite query
   /// operations for development
-  final Widget childWidget;
+  final Widget parentWidget;
 
   /// This widget is for development and in production should not be displayed, so this controls if the FAB at the bottom
   /// of the screen is visible(enabled) or not.
@@ -39,10 +40,10 @@ class SqliteScreenWidget extends StatefulWidget {
 
   SqliteScreenWidget({
     Key? key,
-    required this.childWidget,
+    required this.parentWidget,
     required this.enabled,
     required this.moorBridge,
-    this.rowsPerPage = 7,
+    required this.rowsPerPage,
     String? route,
   })  : assert(rowsPerPage > 4),
         super(key: key) {
@@ -54,7 +55,17 @@ class SqliteScreenWidget extends StatefulWidget {
 
 class _SqliteScreenWidgetState extends State<SqliteScreenWidget> {
   @override
+  initState() {
+    super.initState();
+
+    /// Make sure the singleton is initialized
+    CubitSingleton();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (!widget.enabled) return widget.parentWidget;
+
     /// Display the SQLiteWidget when the database has been opened/created and a spinner while the async task for opening/creating
     /// is going on.
     return FutureBuilder<Widget>(
@@ -81,7 +92,7 @@ class _SqliteScreenWidgetState extends State<SqliteScreenWidget> {
     return SqliteWidget(
       database: widget.moorBridge,
       enable: widget.enabled,
-      child: widget.childWidget,
+      child: widget.parentWidget,
       iconAlignment: Alignment.bottomCenter,
       rowsPerPage: widget.rowsPerPage,
     );

@@ -10,7 +10,6 @@ class RewardModule extends Module {
   final List<Bind> binds = [
     Bind.factory((i) => ActivityContentDao(i())),
     Bind.factory((i) => MoorBridge(dbName: K.dbName, generatedDatabase: i())),
-    Bind.singleton((i) => BuildCubit()),
     Bind.singleton((i) => RewardsDatabase()),
   ];
 
