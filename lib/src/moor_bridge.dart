@@ -13,64 +13,70 @@ _setup(String name) {
 
 class MoorBridge {
   final GeneratedDatabase generatedDatabase;
+  bool _isOpen = true;
 
   MoorBridge({required final String dbName, required this.generatedDatabase}) {
     _setup(dbName);
+    _isOpen = true;
   }
 
-  bool get isOpen => true;
+  bool get isOpen => _isOpen;
 
   String get path => _dbPath;
 
-  void close() {}
-
-  Future<void> delete({required String tableName}) async {}
+  void close() {
+    if (isOpen) generatedDatabase.close();
+    _isOpen = false;
+  }
 
   Future<void> clear({required String table}) async {
+    if (!isOpen) return;
     final sql = 'DELETE FROM $table';
     await generatedDatabase.customWriteReturning(sql);
   }
 
   Future<List<Map<String, Object?>>> getTables() async {
+    List<Map<String, dynamic>> product = [];
+    if (!isOpen) return product;
     final sql = "SELECT * FROM sqlite_master WHERE type = 'table'";
     Selectable<QueryRow> result = generatedDatabase.customSelect(sql);
     List<QueryRow> list = await result.get();
-    List<Map<String, dynamic>> product = [];
     list.forEach((QueryRow element) {
       product.add(element.data);
     });
     return product;
   }
 
-  Future<List<Map<String, Object?>>> query(
-    String table, {
-    bool? distinct,
-    List<String>? columns,
-    String? where,
-    List<Object?>? whereArgs,
-    String? groupBy,
-    String? having,
-    String? orderBy,
-    int? limit,
-    int? offset,
-  }) async {
-    final List<Map<String, Object>> result = [
-      {'DUMMY DATA': 1}
-    ];
-    return result;
-  }
+  // Future<List<Map<String, Object?>>> query(
+  //   String table, {
+  //   bool? distinct,
+  //   List<String>? columns,
+  //   String? where,
+  //   List<Object?>? whereArgs,
+  //   String? groupBy,
+  //   String? having,
+  //   String? orderBy,
+  //   int? limit,
+  //   int? offset,
+  // }) async {
+  //   final List<Map<String, Object>> result = [
+  //     {'DUMMY DATA': 1}
+  //   ];
+  //   return result;
+  // }
 
-  Future<List<Map<String, Object?>>> rawQuery(String sql, [List<Object?>? arguments]) async {
-    final List<Map<String, Object?>> result = [
-      {'MORE DUMMY DATA': 1}
-    ];
-    return result;
-  }
+  // Future<List<Map<String, Object?>>> rawQuery(String sql, [List<Object?>? arguments]) async {
+  //   final List<Map<String, Object?>> result = [
+  //     {'MORE DUMMY DATA': 1}
+  //   ];
+  //   return result;
+  // }
 
   Future<List<Map<String, Object?>>> rawSql(String sql) async {
+    List<Map<String, dynamic>> product = [];
+    if (!isOpen) return product;
     Selectable<QueryRow> result = generatedDatabase.customSelect(sql);
     List<QueryRow> list = await result.get();
-    List<Map<String, dynamic>> product = [];
     list.forEach((QueryRow element) {
       product.add(element.data);
     });

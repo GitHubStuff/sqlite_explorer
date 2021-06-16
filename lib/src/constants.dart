@@ -11,3 +11,5 @@ const String tableBackgroundColor = '${_prefix}tableBackgroundColor';
 const String _prefix = 'sqlite_explorer.';
 
 Color color(String key, BuildContext context) => ThemeManager.color(key, context: context);
+
+int rawRecordCount(BuildContext context) => 5;

@@ -7,6 +7,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqlite_explorer/src/moor_bridge.dart';
 
 import '../sqlite_explorer.dart';
+import 'constants.dart' as K;
 import 'raw_query_page.dart';
 import 'table_item.dart';
 import 'table_page.dart';
@@ -84,6 +85,7 @@ class _TablesPageState extends State<TablesPage> {
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: ElevatedButton(
+                    child: Text("Wipe database", style: Theme.of(context).textTheme.button),
                     onPressed: () {
                       var path = widget.moorBridge.path;
                       deleteDatabase(path).then((value) {
@@ -91,7 +93,6 @@ class _TablesPageState extends State<TablesPage> {
                         widget.moorBridge.close();
                       });
                     },
-                    child: Text("Wipe database", style: Theme.of(context).textTheme.button),
                   ),
                 ),
                 Padding(
@@ -103,7 +104,7 @@ class _TablesPageState extends State<TablesPage> {
                           builder: (context) {
                             return RawQueryPage(
                               moorBridge: widget.moorBridge,
-                              rowsPerPage: widget.rowsPerPage,
+                              rowsPerPage: K.rawRecordCount(context),
                             );
                           },
                         ),

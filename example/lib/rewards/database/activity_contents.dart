@@ -12,7 +12,6 @@ const int _amountLength = 10;
 const int _dateTimeLength = 25;
 const int _defaultColumnWidth = 50;
 const int _maxColumnWidth = 100;
-const int _memberIdLength = 50;
 
 LazyDatabase _openConnection() {
   // the LazyDatabase util lets us find the right location for the file async.
@@ -27,9 +26,6 @@ LazyDatabase _openConnection() {
 
 @UseMoor(tables: [
   ActivityContents,
-  // ActivityProgression,
-  // ActivityVersions,
-  // ActivityPerMembers,
 ], daos: [
   ActivityContentDao,
 ])
@@ -72,32 +68,3 @@ class ActivityContents extends Table {
   TextColumn get validFrom => text().withLength(min: 1, max: _dateTimeLength)();
   TextColumn get validUntil => text().withLength(min: 1, max: _dateTimeLength)();
 }
-
-///++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// @DataClassName('ActivityProgress')
-// class ActivityProgression extends Table {
-//   IntColumn get id => integer().autoIncrement()();
-//   TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
-//   TextColumn get amount => text().withLength(min: 1, max: _amountLength)();
-//   TextColumn get dateCompleted => text().withLength(min: 8, max: _dateTimeLength)();
-//   TextColumn get memberId => text().withLength(min: 4, max: _memberIdLength)();
-//   IntColumn get sequenceNumber => integer().withDefault(Constant(1))();
-// }
-
-///++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// class ActivityVersions extends Table {
-//   IntColumn get id => integer().autoIncrement()();
-//   TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
-//   TextColumn get timeStamp => text().withLength(min: 1, max: _dateTimeLength)();
-//   TextColumn get title => text().withLength(min: 1, max: _defaultColumnWidth)();
-// }
-
-///++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// class ActivityPerMembers extends Table {
-//   IntColumn get id => integer().autoIncrement()();
-//   TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
-//   TextColumn get endingDate => text().withLength(min: 1, max: _dateTimeLength)();
-//   TextColumn get memberId => text().withLength(min: 4, max: _memberIdLength)();
-//   TextColumn get memberName => text().withLength(min: 1, max: _defaultColumnWidth)();
-//   TextColumn get startingDate => text().withLength(min: 1, max: _dateTimeLength)();
-// }

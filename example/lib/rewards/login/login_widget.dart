@@ -1,8 +1,8 @@
-import 'package:sqlite_reporter/data/read_json.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_extras/flutter_extras.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sqlite_explorer/sqlite_explorer.dart';
+import 'package:sqlite_reporter/data/read_json.dart';
 import 'package:theme_manager/theme_manager.dart';
 
 class LoginWidget extends StatefulWidget {
@@ -27,18 +27,18 @@ class _LoginWidget extends ObservingStatefulWidget<LoginWidget> {
         ],
       ),
       body: _quickBody(context),
-      floatingActionButton: FloatingActionButton(
-        onPressed: !_isFirst
-            ? null
-            : () {
+      floatingActionButton: !_isFirst
+          ? null
+          : FloatingActionButton(
+              onPressed: () {
                 ReadJson().load();
                 setState(() {
                   _isFirst = !_isFirst;
                 });
               },
-        tooltip: 'Increment',
-        child: _isFirst ? Icon(Icons.add) : Icon(Icons.data_usage),
-      ),
+              tooltip: 'Increment',
+              child: _isFirst ? Icon(Icons.add) : Icon(Icons.data_usage),
+            ),
     );
   }
 

@@ -33,7 +33,7 @@ class BuildCubit extends Cubit<BuildState> {
     ThemeManager.defaultThemeColors(
         ThemeColors(
           dark: Colors.green[900]!,
-          light: Colors.white70,
+          light: Colors.white38,
         ),
         forKey: K.tableBackgroundColor);
     ThemeManager.defaultThemeColors(

@@ -1,7 +1,6 @@
 // Gateway widget to view SQLite databases
 import 'package:flutter/material.dart';
 import 'package:sqlite_explorer/src/moor_bridge.dart';
-import 'package:tracers_package/tracers.dart';
 
 import 'sqlite_widget.dart';
 
@@ -48,7 +47,6 @@ class SqliteScreenWidget extends StatefulWidget {
   })  : assert(rowsPerPage > 4),
         super(key: key) {
     setRoute(route ?? _defaultRoute);
-    Log.T('sqlite_screen_widget.dart');
   }
 
   _SqliteScreenWidgetState createState() => _SqliteScreenWidgetState();
