@@ -36,7 +36,9 @@ class _TablesPageState extends State<TablesPage> {
   @override
   void initState() {
     super.initState();
-    _getTables();
+    Future.delayed(Duration(milliseconds: 350), () {
+      _getTables();
+    });
   }
 
   /// Query 'sqlite_master' to retrieve information about all the tables
@@ -127,13 +129,14 @@ class _TablesPageState extends State<TablesPage> {
                 if (snapshot.hasData) {
                   return ListView(
                     children: snapshot.data!.map((table) {
+                      final String recordCount = (recordCounts[table.name] ?? 0) == 0 ? 'none' : (recordCounts[table.name] ?? 0).toString();
                       return ListTile(
                         title: Text(table.name,
                             style: TextStyle(
                               color: K.color(K.defaultTextColor, context),
                               fontSize: TextKey.headline6.getFontSize,
                             )),
-                        subtitle: Text('Records: ${recordCounts[table.name]}'),
+                        subtitle: Text('Records: $recordCount'),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                             return TablePage(

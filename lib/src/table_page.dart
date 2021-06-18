@@ -39,6 +39,14 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
   }
 
   @override
+  void afterFirstLayout(BuildContext context) {
+    super.afterFirstLayout(context);
+    Future.delayed(Duration(milliseconds: 250), () {
+      CubitSingleton().cubit.refresh();
+    });
+  }
+
+  @override
   void didChangePlatformBrightness() {}
 
   @override
