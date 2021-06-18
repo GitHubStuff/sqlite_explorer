@@ -56,7 +56,8 @@ class _RawQueryPage extends State<RawQueryPage> {
 
   @override
   Widget build(BuildContext context) {
-    sqlQueryController.text = 'SELECT * FROM ';
+    //sqlQueryController.text = 'SELECT * FROM ';
+    sqlQueryController.text = "SELECT SUM(sGroup) FROM (SELECT SUM(amount) AS 'sGroup' FROM activity_contents GROUP BY activity_id) T1";
     return Scaffold(
       //backgroundColor: modeView.of(context: context),
       appBar: AppBar(
