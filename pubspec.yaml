@@ -1,7 +1,7 @@
 name: sqlite_explorer
 description: Package to display sqlite data tables
 publish_to: none
-version: 0.8.2+1
+version: 0.8.2+2
 
 environment:
   sdk: ">=2.13.3 <3.0.0"

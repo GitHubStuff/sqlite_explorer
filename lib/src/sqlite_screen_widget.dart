@@ -83,12 +83,6 @@ class _SqliteScreenWidgetState extends State<SqliteScreenWidget> {
   /// This async tasks opens/creates/updates the sqlite database from the SQLiteIdentity class that was
   /// passed.
   Future<Widget> _getWidget() async {
-    // await SqliteController.initialize(
-    //   name: widget.sqliteIdentity.databaseName,
-    //   version: widget.sqliteIdentity.databaseVersion ?? 1,
-    //   create: widget.sqliteIdentity.dbCreate,
-    //   upgrade: widget.sqliteIdentity.dbUpgrade,
-    // );
     return SqliteWidget(
       database: widget.moorBridge,
       enable: widget.enabled,

@@ -63,9 +63,7 @@ class _RawQueryPage extends State<RawQueryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: modeView.of(context: context),
       appBar: AppBar(
-        //backgroundColor: Colors.blueGrey, //modeView.of(context: context),
         title: Text('Raw Query'),
         actions: [
           ThemeControlWidget(),
