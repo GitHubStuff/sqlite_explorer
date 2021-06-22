@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:persisted_cache/source/cached_widget.dart';
+import 'package:persisted_cache/source/persisted_cache.dart';
 import 'package:sqlite_explorer/moor/moor_bridge.dart';
 import 'package:theme_manager/theme_manager.dart';
 
@@ -7,7 +9,6 @@ import 'constants.dart' as K;
 
 class RawQueryPage extends StatefulWidget {
   final MoorBridge moorBridge;
-  //final Database db;
   final int rowsPerPage;
 
   const RawQueryPage({
@@ -49,7 +50,7 @@ class _DBDataTableSource extends DataTableSource {
 }
 
 class _RawQueryPage extends State<RawQueryPage> {
-  final TextEditingController sqlQueryController = TextEditingController();
+  PersistedCache _persistedCache = PersistedCache(cacheId: 'sqlBlob');
   List<Map<String, dynamic>>? _result;
   String _error = '';
   bool _isQueryRunning = false;
@@ -57,7 +58,7 @@ class _RawQueryPage extends State<RawQueryPage> {
   @override
   Widget build(BuildContext context) {
     //sqlQueryController.text = 'SELECT * FROM ';
-    sqlQueryController.text = "SELECT SUM(sGroup) FROM (SELECT SUM(amount) AS 'sGroup' FROM activity_contents GROUP BY activity_id) T1";
+    // sqlQueryController.text = "SELECT SUM(sGroup) FROM (SELECT SUM(amount) AS 'sGroup' FROM activity_contents GROUP BY activity_id) T1";
     return Scaffold(
       //backgroundColor: modeView.of(context: context),
       appBar: AppBar(
@@ -89,19 +90,10 @@ class _RawQueryPage extends State<RawQueryPage> {
       padding: const EdgeInsets.all(4.0),
       child: Column(
         children: <Widget>[
-          TextField(
-            controller: sqlQueryController,
-            decoration: InputDecoration(
-              hintText: "SQL Query",
-              border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                color: ThemeColors(
-                  dark: Colors.grey,
-                  light: Colors.green,
-                ).of(context: context),
-                width: 2,
-              )),
-            ),
+          CachedWidget(
+            persistedCache: _persistedCache,
+            emptyCacheMessage: 'Empty Cache',
+            cachePopoverCallback: (value) {},
           ),
           _buildCommandBar(),
           SizedBox(height: 4.0),
