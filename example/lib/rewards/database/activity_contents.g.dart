@@ -10,7 +10,7 @@ part of 'activity_contents.dart';
 class ActivityContent extends DataClass implements Insertable<ActivityContent> {
   final int id;
   final String activityId;
-  final String amount;
+  final double amount;
   final String confirmationCancel;
   final String confirmationSave;
   final String confirmationTitle;
@@ -54,7 +54,7 @@ class ActivityContent extends DataClass implements Insertable<ActivityContent> {
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       activityId: const StringType()
           .mapFromDatabaseResponse(data['${effectivePrefix}activity_id'])!,
-      amount: const StringType()
+      amount: const RealType()
           .mapFromDatabaseResponse(data['${effectivePrefix}amount'])!,
       confirmationCancel: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}confirmation_cancel'])!,
@@ -93,7 +93,7 @@ class ActivityContent extends DataClass implements Insertable<ActivityContent> {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['activity_id'] = Variable<String>(activityId);
-    map['amount'] = Variable<String>(amount);
+    map['amount'] = Variable<double>(amount);
     map['confirmation_cancel'] = Variable<String>(confirmationCancel);
     map['confirmation_save'] = Variable<String>(confirmationSave);
     map['confirmation_title'] = Variable<String>(confirmationTitle);
@@ -141,7 +141,7 @@ class ActivityContent extends DataClass implements Insertable<ActivityContent> {
     return ActivityContent(
       id: serializer.fromJson<int>(json['id']),
       activityId: serializer.fromJson<String>(json['activityId']),
-      amount: serializer.fromJson<String>(json['amount']),
+      amount: serializer.fromJson<double>(json['amount']),
       confirmationCancel:
           serializer.fromJson<String>(json['confirmationCancel']),
       confirmationSave: serializer.fromJson<String>(json['confirmationSave']),
@@ -167,7 +167,7 @@ class ActivityContent extends DataClass implements Insertable<ActivityContent> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'activityId': serializer.toJson<String>(activityId),
-      'amount': serializer.toJson<String>(amount),
+      'amount': serializer.toJson<double>(amount),
       'confirmationCancel': serializer.toJson<String>(confirmationCancel),
       'confirmationSave': serializer.toJson<String>(confirmationSave),
       'confirmationTitle': serializer.toJson<String>(confirmationTitle),
@@ -189,7 +189,7 @@ class ActivityContent extends DataClass implements Insertable<ActivityContent> {
   ActivityContent copyWith(
           {int? id,
           String? activityId,
-          String? amount,
+          double? amount,
           String? confirmationCancel,
           String? confirmationSave,
           String? confirmationTitle,
@@ -318,7 +318,7 @@ class ActivityContent extends DataClass implements Insertable<ActivityContent> {
 class ActivityContentsCompanion extends UpdateCompanion<ActivityContent> {
   final Value<int> id;
   final Value<String> activityId;
-  final Value<String> amount;
+  final Value<double> amount;
   final Value<String> confirmationCancel;
   final Value<String> confirmationSave;
   final Value<String> confirmationTitle;
@@ -357,7 +357,7 @@ class ActivityContentsCompanion extends UpdateCompanion<ActivityContent> {
   ActivityContentsCompanion.insert({
     this.id = const Value.absent(),
     required String activityId,
-    required String amount,
+    this.amount = const Value.absent(),
     required String confirmationCancel,
     required String confirmationSave,
     required String confirmationTitle,
@@ -374,7 +374,6 @@ class ActivityContentsCompanion extends UpdateCompanion<ActivityContent> {
     required String validFrom,
     required String validUntil,
   })  : activityId = Value(activityId),
-        amount = Value(amount),
         confirmationCancel = Value(confirmationCancel),
         confirmationSave = Value(confirmationSave),
         confirmationTitle = Value(confirmationTitle),
@@ -391,7 +390,7 @@ class ActivityContentsCompanion extends UpdateCompanion<ActivityContent> {
   static Insertable<ActivityContent> custom({
     Expression<int>? id,
     Expression<String>? activityId,
-    Expression<String>? amount,
+    Expression<double>? amount,
     Expression<String>? confirmationCancel,
     Expression<String>? confirmationSave,
     Expression<String>? confirmationTitle,
@@ -434,7 +433,7 @@ class ActivityContentsCompanion extends UpdateCompanion<ActivityContent> {
   ActivityContentsCompanion copyWith(
       {Value<int>? id,
       Value<String>? activityId,
-      Value<String>? amount,
+      Value<double>? amount,
       Value<String>? confirmationCancel,
       Value<String>? confirmationSave,
       Value<String>? confirmationTitle,
@@ -482,7 +481,7 @@ class ActivityContentsCompanion extends UpdateCompanion<ActivityContent> {
       map['activity_id'] = Variable<String>(activityId.value);
     }
     if (amount.present) {
-      map['amount'] = Variable<String>(amount.value);
+      map['amount'] = Variable<double>(amount.value);
     }
     if (confirmationCancel.present) {
       map['confirmation_cancel'] = Variable<String>(confirmationCancel.value);
@@ -582,9 +581,10 @@ class $ActivityContentsTable extends ActivityContents
 
   final VerificationMeta _amountMeta = const VerificationMeta('amount');
   @override
-  late final GeneratedTextColumn amount = _constructAmount();
-  GeneratedTextColumn _constructAmount() {
-    return GeneratedTextColumn('amount', $tableName, false, minTextLength: 1);
+  late final GeneratedRealColumn amount = _constructAmount();
+  GeneratedRealColumn _constructAmount() {
+    return GeneratedRealColumn('amount', $tableName, false,
+        defaultValue: Constant(0.0));
   }
 
   final VerificationMeta _confirmationCancelMeta =
@@ -763,8 +763,6 @@ class $ActivityContentsTable extends ActivityContents
     if (data.containsKey('amount')) {
       context.handle(_amountMeta,
           amount.isAcceptableOrUnknown(data['amount']!, _amountMeta));
-    } else if (isInserting) {
-      context.missing(_amountMeta);
     }
     if (data.containsKey('confirmation_cancel')) {
       context.handle(

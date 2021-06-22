@@ -56,9 +56,12 @@ class _RawQueryPage extends State<RawQueryPage> {
   bool _isQueryRunning = false;
 
   @override
+  initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    //sqlQueryController.text = 'SELECT * FROM ';
-    // sqlQueryController.text = "SELECT SUM(sGroup) FROM (SELECT SUM(amount) AS 'sGroup' FROM activity_contents GROUP BY activity_id) T1";
     return Scaffold(
       //backgroundColor: modeView.of(context: context),
       appBar: AppBar(
@@ -76,13 +79,7 @@ class _RawQueryPage extends State<RawQueryPage> {
 
   @override
   void dispose() {
-    sqlQueryController.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   Widget _buildBody() {
@@ -93,60 +90,17 @@ class _RawQueryPage extends State<RawQueryPage> {
           CachedWidget(
             persistedCache: _persistedCache,
             emptyCacheMessage: 'Empty Cache',
-            cachePopoverCallback: (value) {},
+            cachePopoverCallback: (value) {
+              _runQuery(value as String);
+            },
           ),
-          _buildCommandBar(),
+          //_buildCommandBar(),
           SizedBox(height: 4.0),
           Expanded(
             child: _buildResult(),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildCommandBar() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        ElevatedButton.icon(
-          onPressed: () {
-            sqlQueryController.clear();
-          },
-          icon: Icon(
-            Icons.close,
-            color: K.color(K.defaultTextColor, context),
-          ),
-          label: Text(
-            'Clear',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-            ),
-          ),
-        ),
-        SizedBox(width: 16.0),
-        ElevatedButton.icon(
-          label: Text(
-            'Run',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24.0,
-            ),
-          ),
-          onPressed: !this._isQueryRunning
-              ? () {
-                  // Hide keyboard
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  _runQuery();
-                }
-              : null,
-          icon: Icon(
-            Icons.play_arrow,
-            color: K.color(K.defaultTextColor, context),
-          ),
-        ),
-      ],
     );
   }
 
@@ -207,8 +161,8 @@ class _RawQueryPage extends State<RawQueryPage> {
     );
   }
 
-  void _runQuery() async {
-    String query = sqlQueryController.text;
+  void _runQuery(String sql) async {
+    String query = sql;
     if (query.isEmpty) {
       return;
     }

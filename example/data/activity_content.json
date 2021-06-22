@@ -2,7 +2,7 @@
   {
     "_id": "60c767f1ee54ef0012e53378",
     "activityId": "8ddae7f1-0f77-41ab-9a59-021d17cf85e5",
-    "amount": "$10.00",
+    "amount": 10.00,
     "confirmationCancel": "Cancelar",
     "confirmationContent": "Confirmar",
     "confirmationSave": "Ahorrar",
@@ -30,7 +30,7 @@
   {
     "_id": "60c767f12ad935001300c186",
     "activityId": "fa07fba2-a8f7-4b28-8d6f-7f3605560cbd",
-    "amount": "$25.00",
+    "amount": 25.00,
     "confirmationCancel": "Cancelar",
     "confirmationContent": "Confirmar",
     "confirmationSave": "Ahorrar",
@@ -58,7 +58,7 @@
   {
     "_id": "60c767f1613b450013d992db",
     "activityId": "8ddae7f1-0f77-41ab-9a59-021d17cf85e5",
-    "amount": "$10.00",
+    "amount": 10.00,
     "confirmationCancel": "Cancel",
     "confirmationContent": "Confirm",
     "confirmationSave": "Save",
@@ -86,7 +86,7 @@
   {
     "_id": "60c767f124e8540012c1bf05",
     "activityId": "9a6f91f1-6a2f-4e0e-b6a7-f8e904d9520a",
-    "amount": "$10.00",
+    "amount": 10.00,
     "confirmationCancel": "Cancelar",
     "confirmationContent": "Confirmar",
     "confirmationSave": "Ahorrar",
@@ -114,7 +114,7 @@
   {
     "_id": "60c767f1ee54ef0012e53379",
     "activityId": "f1d58f4c-1fbf-46c1-9c5f-3999bdffdcea",
-    "amount": "$25.00",
+    "amount": 25.00,
     "confirmationCancel": "Cancelar",
     "confirmationContent": "Confirmar",
     "confirmationSave": "Ahorrar",
@@ -142,7 +142,7 @@
   {
     "_id": "60c767f1358c9600137f5f52",
     "activityId": "f1d58f4c-1fbf-46c1-9c5f-3999bdffdcea",
-    "amount": "$25.00",
+    "amount": 25.00,
     "confirmationCancel": "Cancel",
     "confirmationContent": "Confirm",
     "confirmationSave": "Save",
@@ -170,7 +170,7 @@
   {
     "_id": "60c767f12ad935001300c185",
     "activityId": "ba43bd92-f5b5-4e80-86fc-14e5d67be327",
-    "amount": "$5.00",
+    "amount": 5.00,
     "confirmationCancel": "Cancelar",
     "confirmationContent": "Confirmar",
     "confirmationSave": "Ahorrar",
@@ -198,7 +198,7 @@
   {
     "_id": "60c767f10a4d9c001455fff5",
     "activityId": "fa07fba2-a8f7-4b28-8d6f-7f3605560cbd",
-    "amount": "$25.00",
+    "amount": 25.00,
     "confirmationCancel": "Cancel",
     "confirmationContent": "Confirm",
     "confirmationSave": "Save",
@@ -226,7 +226,7 @@
   {
     "_id": "60c767f12ad935001300c187",
     "activityId": "9a6f91f1-6a2f-4e0e-b6a7-f8e904d9520a",
-    "amount": "$10.00",
+    "amount": 10.00,
     "confirmationCancel": "Cancel",
     "confirmationContent": "Confirm",
     "confirmationSave": "Save",
@@ -254,7 +254,7 @@
   {
     "_id": "60c767f2613b450013d992dc",
     "activityId": "ba43bd92-f5b5-4e80-86fc-14e5d67be327",
-    "amount": "$5.00",
+    "amount": 5.00,
     "confirmationCancel": "Cancel",
     "confirmationContent": "Confirm",
     "confirmationSave": "Save",

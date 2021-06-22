@@ -51,7 +51,7 @@ class ActivityContentDao extends DatabaseAccessor<RewardsDatabase> with _$Activi
 class ActivityContents extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get activityId => text().withLength(min: 1, max: _activityIdLength)();
-  TextColumn get amount => text().withLength(min: 1, max: _amountLength)();
+  RealColumn get amount => real().withDefault(Constant(0.0))();
   TextColumn get confirmationCancel => text().withLength(min: 1, max: _defaultColumnWidth)();
   TextColumn get confirmationSave => text().withLength(min: 1, max: _defaultColumnWidth)();
   TextColumn get confirmationTitle => text().withLength(min: 1, max: _defaultColumnWidth)();
