@@ -63,7 +63,7 @@ That object (RewardsDataBase) and the suffix used in LazyDatabase (eg: 'rewards.
 MoorBridge(dbName: 'rewards.sqlite' , generatedDatabase: RewardDatabase());
 ```
 
-- **NOTE:** In the /example project these are all defined in [flutter_modular](https://pub.dev/packages/flutter_modular) Module. The flutter_modular is an A++ statc manage package that handles route, dependency injection, a 'disposable singleton' system (see: ***reward_module.dart*** for an example of how the RewardsDatabase and MoorBridge are created using flutter_modular-singletons)
+- **NOTE:** In the /example project these are all defined in [flutter_modular](https://pub.dev/packages/flutter_modular) Module. The flutter_modular is an A++ state manage package that handles route, dependency injection, a 'disposable singleton' system (see: ***reward_module.dart*** for an example of how the RewardsDatabase and MoorBridge are created using flutter_modular-singletons)
 
 ### ****Special Notes****
 
