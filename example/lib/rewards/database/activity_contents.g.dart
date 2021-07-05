@@ -564,159 +564,148 @@ class $ActivityContentsTable extends ActivityContents
   final String? _alias;
   $ActivityContentsTable(this._db, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
-  @override
-  late final GeneratedIntColumn id = _constructId();
-  GeneratedIntColumn _constructId() {
-    return GeneratedIntColumn('id', $tableName, false,
-        hasAutoIncrement: true, declaredAsPrimaryKey: true);
-  }
-
+  late final GeneratedColumn<int?> id = GeneratedColumn<int?>(
+      'id', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _activityIdMeta = const VerificationMeta('activityId');
-  @override
-  late final GeneratedTextColumn activityId = _constructActivityId();
-  GeneratedTextColumn _constructActivityId() {
-    return GeneratedTextColumn('activity_id', $tableName, false,
-        minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> activityId =
+      GeneratedColumn<String?>('activity_id', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _amountMeta = const VerificationMeta('amount');
-  @override
-  late final GeneratedRealColumn amount = _constructAmount();
-  GeneratedRealColumn _constructAmount() {
-    return GeneratedRealColumn('amount', $tableName, false,
-        defaultValue: Constant(0.0));
-  }
-
+  late final GeneratedColumn<double?> amount = GeneratedColumn<double?>(
+      'amount', aliasedName, false,
+      typeName: 'REAL',
+      requiredDuringInsert: false,
+      defaultValue: Constant(0.0));
   final VerificationMeta _confirmationCancelMeta =
       const VerificationMeta('confirmationCancel');
-  @override
-  late final GeneratedTextColumn confirmationCancel =
-      _constructConfirmationCancel();
-  GeneratedTextColumn _constructConfirmationCancel() {
-    return GeneratedTextColumn('confirmation_cancel', $tableName, false,
-        minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> confirmationCancel =
+      GeneratedColumn<String?>('confirmation_cancel', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _confirmationSaveMeta =
       const VerificationMeta('confirmationSave');
-  @override
-  late final GeneratedTextColumn confirmationSave =
-      _constructConfirmationSave();
-  GeneratedTextColumn _constructConfirmationSave() {
-    return GeneratedTextColumn('confirmation_save', $tableName, false,
-        minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> confirmationSave =
+      GeneratedColumn<String?>('confirmation_save', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _confirmationTitleMeta =
       const VerificationMeta('confirmationTitle');
-  @override
-  late final GeneratedTextColumn confirmationTitle =
-      _constructConfirmationTitle();
-  GeneratedTextColumn _constructConfirmationTitle() {
-    return GeneratedTextColumn('confirmation_title', $tableName, false,
-        minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> confirmationTitle =
+      GeneratedColumn<String?>('confirmation_title', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _dateCompleteCaptionMeta =
       const VerificationMeta('dateCompleteCaption');
-  @override
-  late final GeneratedTextColumn dateCompleteCaption =
-      _constructDateCompleteCaption();
-  GeneratedTextColumn _constructDateCompleteCaption() {
-    return GeneratedTextColumn('date_complete_caption', $tableName, false,
-        minTextLength: 4);
-  }
-
+  late final GeneratedColumn<String?> dateCompleteCaption =
+      GeneratedColumn<String?>('date_complete_caption', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 4,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _dateFormatMeta = const VerificationMeta('dateFormat');
-  @override
-  late final GeneratedTextColumn dateFormat = _constructDateFormat();
-  GeneratedTextColumn _constructDateFormat() {
-    return GeneratedTextColumn('date_format', $tableName, false,
-        minTextLength: 1,
-        maxTextLength: 15,
-        defaultValue: Constant('MM-dd-yyy'));
-  }
-
+  late final GeneratedColumn<String?> dateFormat = GeneratedColumn<String?>(
+      'date_format', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 15),
+      typeName: 'TEXT',
+      requiredDuringInsert: false,
+      defaultValue: Constant('MM-dd-yyy'));
   final VerificationMeta _detailsMeta = const VerificationMeta('details');
-  @override
-  late final GeneratedTextColumn details = _constructDetails();
-  GeneratedTextColumn _constructDetails() {
-    return GeneratedTextColumn('details', $tableName, false, minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> details =
+      GeneratedColumn<String?>('details', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _imageUrlMeta = const VerificationMeta('imageUrl');
-  @override
-  late final GeneratedTextColumn imageUrl = _constructImageUrl();
-  GeneratedTextColumn _constructImageUrl() {
-    return GeneratedTextColumn('image_url', $tableName, false,
-        minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> imageUrl =
+      GeneratedColumn<String?>('image_url', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _languageMeta = const VerificationMeta('language');
-  @override
-  late final GeneratedTextColumn language = _constructLanguage();
-  GeneratedTextColumn _constructLanguage() {
-    return GeneratedTextColumn('language', $tableName, false,
-        minTextLength: 2, maxTextLength: 2);
-  }
-
+  late final GeneratedColumn<String?> language = GeneratedColumn<String?>(
+      'language', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 2, maxTextLength: 2),
+      typeName: 'TEXT',
+      requiredDuringInsert: true);
   final VerificationMeta _rewardTypeMeta = const VerificationMeta('rewardType');
-  @override
-  late final GeneratedTextColumn rewardType = _constructRewardType();
-  GeneratedTextColumn _constructRewardType() {
-    return GeneratedTextColumn('reward_type', $tableName, false,
-        minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> rewardType =
+      GeneratedColumn<String?>('reward_type', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _sequencesMeta = const VerificationMeta('sequences');
-  @override
-  late final GeneratedIntColumn sequences = _constructSequences();
-  GeneratedIntColumn _constructSequences() {
-    return GeneratedIntColumn('sequences', $tableName, false,
-        defaultValue: Constant(1));
-  }
-
+  late final GeneratedColumn<int?> sequences = GeneratedColumn<int?>(
+      'sequences', aliasedName, false,
+      typeName: 'INTEGER',
+      requiredDuringInsert: false,
+      defaultValue: Constant(1));
   final VerificationMeta _setDateCaptionMeta =
       const VerificationMeta('setDateCaption');
-  @override
-  late final GeneratedTextColumn setDateCaption = _constructSetDateCaption();
-  GeneratedTextColumn _constructSetDateCaption() {
-    return GeneratedTextColumn('set_date_caption', $tableName, false,
-        minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> setDateCaption =
+      GeneratedColumn<String?>('set_date_caption', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _spinnerMessageMeta =
       const VerificationMeta('spinnerMessage');
-  @override
-  late final GeneratedTextColumn spinnerMessage = _constructSpinnerMessage();
-  GeneratedTextColumn _constructSpinnerMessage() {
-    return GeneratedTextColumn('spinner_message', $tableName, false,
-        minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> spinnerMessage =
+      GeneratedColumn<String?>('spinner_message', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _titleMeta = const VerificationMeta('title');
-  @override
-  late final GeneratedTextColumn title = _constructTitle();
-  GeneratedTextColumn _constructTitle() {
-    return GeneratedTextColumn('title', $tableName, false, minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> title =
+      GeneratedColumn<String?>('title', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _validFromMeta = const VerificationMeta('validFrom');
-  @override
-  late final GeneratedTextColumn validFrom = _constructValidFrom();
-  GeneratedTextColumn _constructValidFrom() {
-    return GeneratedTextColumn('valid_from', $tableName, false,
-        minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> validFrom =
+      GeneratedColumn<String?>('valid_from', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   final VerificationMeta _validUntilMeta = const VerificationMeta('validUntil');
-  @override
-  late final GeneratedTextColumn validUntil = _constructValidUntil();
-  GeneratedTextColumn _constructValidUntil() {
-    return GeneratedTextColumn('valid_until', $tableName, false,
-        minTextLength: 1);
-  }
-
+  late final GeneratedColumn<String?> validUntil =
+      GeneratedColumn<String?>('valid_until', aliasedName, false,
+          additionalChecks: GeneratedColumn.checkTextLength(
+            minTextLength: 1,
+          ),
+          typeName: 'TEXT',
+          requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
         id,
@@ -739,11 +728,9 @@ class $ActivityContentsTable extends ActivityContents
         validUntil
       ];
   @override
-  $ActivityContentsTable get asDslTable => this;
+  String get aliasedName => _alias ?? 'activity_contents';
   @override
-  String get $tableName => _alias ?? 'activity_contents';
-  @override
-  final String actualTableName = 'activity_contents';
+  String get actualTableName => 'activity_contents';
   @override
   VerificationContext validateIntegrity(Insertable<ActivityContent> instance,
       {bool isInserting = false}) {

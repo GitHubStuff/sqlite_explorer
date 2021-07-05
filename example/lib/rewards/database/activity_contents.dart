@@ -8,7 +8,6 @@ import 'package:path_provider/path_provider.dart';
 part 'activity_contents.g.dart';
 
 const int _activityIdLength = 50;
-const int _amountLength = 10;
 const int _dateTimeLength = 25;
 const int _defaultColumnWidth = 50;
 const int _maxColumnWidth = 100;

@@ -2,7 +2,7 @@ name: sqlite_reporter
 description: An sqlite plugin app for flutter_sqflite_manager
 publish_to: none
 # Paste just below 'description:'
-version: 0.0.5
+version: 0.0.5+1
 
 environment:
   sdk: ">=2.12.3 <3.0.0"
@@ -33,9 +33,9 @@ dependencies:
   auto_size_text: ^3.0.0-nullsafety.0
   cupertino_icons: ^1.0.3
   flutter_bloc: ^7.0.1
-  flutter_modular: ^3.2.2+1
+  flutter_modular: ^3.3.0
   intl: ^0.17.0
-  moor: ^4.3.2
+  moor: ^4.4.0
   moor_flutter: ^4.0.0
   path: ^1.8.0
   path_provider: ^2.0.2
@@ -44,9 +44,9 @@ dependencies:
   sqlite3_flutter_libs: ^0.5.0
 
 dev_dependencies:
-  build_runner: ^2.0.4
-  moor_generator: ^4.3.1
-  test: ^1.17.7
+  build_runner: ^2.0.5
+  moor_generator: ^4.4.0
+  test: ^1.17.9
 
 flutter:
   uses-material-design: true
