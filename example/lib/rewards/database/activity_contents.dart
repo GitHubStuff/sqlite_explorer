@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:moor/ffi.dart';
-import 'package:moor/moor.dart';
+import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -19,11 +19,11 @@ LazyDatabase _openConnection() {
     // for your app.
     final dbFolder = await getApplicationDocumentsDirectory();
     final file = File(p.join(dbFolder.path, 'rewards.sqlite'));
-    return VmDatabase(file, logStatements: true);
+    return NativeDatabase(file, logStatements: true);
   });
 }
 
-@UseMoor(tables: [
+@DriftDatabase(tables: [
   ActivityContents,
 ], daos: [
   ActivityContentDao,
@@ -34,7 +34,7 @@ class RewardsDatabase extends _$RewardsDatabase {
   int get schemaVersion => 1;
 }
 
-@UseDao(tables: [ActivityContents])
+@DriftAccessor(tables: [ActivityContents])
 class ActivityContentDao extends DatabaseAccessor<RewardsDatabase> with _$ActivityContentDaoMixin {
   final RewardsDatabase db;
   ActivityContentDao(this.db) : super(db);

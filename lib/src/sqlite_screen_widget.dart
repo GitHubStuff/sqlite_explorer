@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../cubit/cubit_singleton.dart';
-import '../moor/moor_bridge.dart';
+import '../drift/drift_bridge.dart';
 import 'sqlite_widget.dart';
 
 /// This is the default named for the routes defined in 'routes' of the MaterialApp, it can be overridden calling
@@ -36,13 +36,13 @@ class SqliteScreenWidget extends StatefulWidget {
   /// Call to that defines the SQLite database instance (founding concept is a single Sqlite database file for each app)
   /// This is wrapper for info passed to create/open a sqlite database (name, version, create callback, update callback)
   /// found in the SQLite spec.
-  final MoorBridge moorBridge;
+  final DriftBridge driftBridge;
 
   SqliteScreenWidget({
     Key? key,
     required this.parentWidget,
     required this.enabled,
-    required this.moorBridge,
+    required this.driftBridge,
     required this.rowsPerPage,
     String? route,
   })  : assert(rowsPerPage > 4),
@@ -84,7 +84,7 @@ class _SqliteScreenWidgetState extends State<SqliteScreenWidget> {
   /// passed.
   Future<Widget> _getWidget() async {
     return SqliteWidget(
-      database: widget.moorBridge,
+      database: widget.driftBridge,
       enable: widget.enabled,
       child: widget.parentWidget,
       iconAlignment: Alignment.bottomCenter,

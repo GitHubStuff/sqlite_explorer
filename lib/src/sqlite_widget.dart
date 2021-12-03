@@ -1,7 +1,7 @@
 // NOTE: This widget should be used by SqliteScreenWidget and VERY VERY CAUTIOUSLY as child widget
 // of anything else without a lot more testing
 import 'package:flutter/material.dart';
-import 'package:sqlite_explorer/moor/moor_bridge.dart';
+import 'package:sqlite_explorer/drift/drift_bridge.dart';
 
 import 'tables_page.dart';
 
@@ -16,7 +16,7 @@ class SqliteWidget extends StatefulWidget {
   final Alignment iconAlignment;
 
   /// To pass the app's database to the manager
-  final MoorBridge database;
+  final DriftBridge database;
 
   /// Called when the database is deleted inside the manager
   final Function? onDatabaseDeleted;
@@ -60,7 +60,7 @@ class _SqliteWidgetState extends State<SqliteWidget> {
                 if (settings.name == 'root') {
                   return MaterialPageRoute(builder: (context) {
                     return TablesPage(
-                      moorBridge: widget.database,
+                      driftBridge: widget.database,
                       onDatabaseDeleted: widget.onDatabaseDeleted,
                       rowsPerPage: widget.rowsPerPage,
                     );

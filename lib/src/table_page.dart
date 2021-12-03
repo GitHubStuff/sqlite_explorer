@@ -6,7 +6,7 @@ import 'package:theme_manager/theme_manager.dart';
 
 import '../../cubit/cubit_singleton.dart';
 import '../cubit/build_cubit.dart';
-import '../moor/moor_bridge.dart';
+import '../drift/drift_bridge.dart';
 import '../sqlite_explorer.dart';
 import 'constants.dart' as K;
 import 'fsm_datasource.dart';
@@ -15,13 +15,13 @@ import 'structure_page.dart';
 class TablePage extends StatefulWidget {
   final String sql;
   final String tableName;
-  final MoorBridge moorBridge;
+  final DriftBridge driftBridge;
   final int rowsPerPage;
 
   TablePage({
     Key? key,
     required this.tableName,
-    required this.moorBridge,
+    required this.driftBridge,
     required this.sql,
     this.rowsPerPage = 8,
   }) : super(key: key ?? UniqueKey());
@@ -78,7 +78,7 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
                           child: ElevatedButton(
                             child: Text("Clear table", style: Theme.of(context).textTheme.button),
                             onPressed: () {
-                              widget.moorBridge.clear(table: widget.tableName).then((value) {
+                              widget.driftBridge.clear(table: widget.tableName).then((value) {
                                 _getData();
                               });
                             },
@@ -185,7 +185,7 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
 
   _getData() {
     final sql = "SELECT * FROM ${widget.tableName} ORDER BY rowid";
-    widget.moorBridge.rawSql(sql).then(
+    widget.driftBridge.rawSql(sql).then(
       (rows) {
         FSMDataSource _dataSource = FSMDataSource();
         if (rows.length > 0) {
@@ -210,7 +210,7 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
   }
 
   _getColumns(FSMDataSource data) {
-    widget.moorBridge.rawSql("select group_concat(name, '|') from pragma_table_info('${this.tableName}')").then(
+    widget.driftBridge.rawSql("select group_concat(name, '|') from pragma_table_info('${this.tableName}')").then(
       (rows) {
         var cleanedRows = rows;
         var columnsString = cleanedRows.toString().replaceAll("[{group_concat(name, '|'): ", "").replaceAll("}]", "");
@@ -218,7 +218,7 @@ class _TablePageState extends ObservingStatefulWidget<TablePage> {
         final columnNameColor = ThemeColors(
           dark: Colors.yellowAccent,
           light: Colors.green[800]!,
-        ).of(context: context);
+        ).of(context);
         List<DataColumn> columnNames = [];
         columnNames.addAll(column.map((key) {
           return DataColumn(

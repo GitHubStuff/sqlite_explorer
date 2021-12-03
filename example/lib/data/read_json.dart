@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
+import 'package:drift/drift.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:json_decoder/json_decoder.dart';
-import 'package:moor/moor.dart';
 import 'package:sqlite_reporter/rewards/database/activity_contents.dart';
 import 'package:tracers_package/tracers.dart';
 import 'package:xfer/xfer.dart';
@@ -20,7 +20,7 @@ class ReadJson {
           (r) async {
             List<Map<String, dynamic>>? jsonList = r.jsonConvertListDynamic;
             if (jsonList != null) {
-              //final moorBridge = Modular.get<MoorBridge>();
+              //final driftBridge = Modular.get<DriftBridge>();
               final ActivityContentDao dao = Modular.get<ActivityContentDao>();
               for (Map<String, dynamic> map in jsonList) {
                 final v = ActivityContentsCompanion(

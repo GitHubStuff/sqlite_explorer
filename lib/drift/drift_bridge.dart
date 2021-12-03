@@ -1,15 +1,15 @@
-import 'package:moor/moor.dart';
+import 'package:drift/drift.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 late String _dbPath;
 
-/// Links a Moor database to explorer
-class MoorBridge {
+/// Links a Drift database to explorer
+class DriftBridge {
   final GeneratedDatabase generatedDatabase;
   bool _isOpen = true;
 
-  MoorBridge({required final String dbName, required this.generatedDatabase}) {
+  DriftBridge({required final String dbName, required this.generatedDatabase}) {
     _setup(dbName);
     _isOpen = true;
   }

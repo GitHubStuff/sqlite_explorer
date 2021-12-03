@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart' as M;
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqlite_explorer/moor/moor_bridge.dart';
+import 'package:sqlite_explorer/drift/drift_bridge.dart';
 import 'package:theme_manager/theme_manager.dart';
 
 import '../sqlite_explorer.dart';
@@ -15,13 +15,13 @@ import 'table_item.dart';
 import 'table_page.dart';
 
 class TablesPage extends StatefulWidget {
-  final MoorBridge moorBridge;
+  final DriftBridge driftBridge;
   final Function? onDatabaseDeleted;
   final int rowsPerPage;
 
   TablesPage({
     Key? key,
-    required this.moorBridge,
+    required this.driftBridge,
     this.onDatabaseDeleted,
     required this.rowsPerPage,
   }) : super(key: key);
@@ -52,11 +52,11 @@ class _TablesPageState extends State<TablesPage> {
   /// - rootpage: INTEGER
   /// - sql: TEXT
   Future<void> _getTables() async {
-    if (!widget.moorBridge.isOpen) return;
-    var tablesRows = await widget.moorBridge.getTables();
+    if (!widget.driftBridge.isOpen) return;
+    var tablesRows = await widget.driftBridge.getTables();
     final List<TableItem> tables = tablesRows.map((table) => TableItem(table['name'] as String, table['sql'] as String)).toList();
     for (TableItem table in tables) {
-      int count = (await widget.moorBridge.recordCount(tableName: table.name))!;
+      int count = (await widget.driftBridge.recordCount(tableName: table.name))!;
       recordCounts[table.name] = count;
     }
 
@@ -93,10 +93,10 @@ class _TablesPageState extends State<TablesPage> {
                   child: ElevatedButton(
                     child: Text("Wipe database", style: Theme.of(context).textTheme.button),
                     onPressed: () {
-                      var path = widget.moorBridge.path;
+                      var path = widget.driftBridge.path;
                       deleteDatabase(path).then((value) {
                         streamController.sink.add([]);
-                        widget.moorBridge.close();
+                        widget.driftBridge.close();
                       });
                     },
                   ),
@@ -109,7 +109,7 @@ class _TablesPageState extends State<TablesPage> {
                         MaterialPageRoute(
                           builder: (context) {
                             return RawQueryPage(
-                              moorBridge: widget.moorBridge,
+                              driftBridge: widget.driftBridge,
                               rowsPerPage: widget.rowsPerPage, // leave room at botton
                             );
                           },
@@ -141,7 +141,7 @@ class _TablesPageState extends State<TablesPage> {
                           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
                             return TablePage(
                               tableName: table.name,
-                              moorBridge: widget.moorBridge,
+                              driftBridge: widget.driftBridge,
                               sql: table.sql,
                               rowsPerPage: widget.rowsPerPage,
                             );

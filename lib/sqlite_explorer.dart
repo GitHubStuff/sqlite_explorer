@@ -1,4 +1,4 @@
 library sqlite_explorer;
 
-export 'moor/moor_bridge.dart';
+export 'drift/drift_bridge.dart';
 export 'src/sqlite_screen_widget.dart';

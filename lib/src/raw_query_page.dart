@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:persisted_cache/source/cached_widget.dart';
 import 'package:persisted_cache/source/persisted_cache.dart';
-import 'package:sqlite_explorer/moor/moor_bridge.dart';
+import 'package:sqlite_explorer/drift/drift_bridge.dart';
 import 'package:theme_manager/theme_manager.dart';
 
 import '../sqlite_explorer.dart';
 import 'constants.dart' as K;
 
 class RawQueryPage extends StatefulWidget {
-  final MoorBridge moorBridge;
+  final DriftBridge driftBridge;
   final int rowsPerPage;
 
   const RawQueryPage({
     Key? key,
-    required this.moorBridge,
+    required this.driftBridge,
     required this.rowsPerPage,
   }) : super(key: key);
 
@@ -171,7 +171,7 @@ class _RawQueryPage extends State<RawQueryPage> {
         _isQueryRunning = true;
       });
 
-      final result = await widget.moorBridge.rawSql(query);
+      final result = await widget.driftBridge.rawSql(query);
 
       setState(() {
         _result = result;

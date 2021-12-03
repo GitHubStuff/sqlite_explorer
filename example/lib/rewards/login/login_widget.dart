@@ -60,12 +60,12 @@ class _LoginWidget extends ObservingStatefulWidget<LoginWidget> {
   }
 
   Widget _quickBody() {
-    final moorBridge = Modular.get<MoorBridge>();
+    final driftBridge = Modular.get<DriftBridge>();
     return SqliteScreenWidget(
       key: UniqueKey(),
       parentWidget: _body(),
       enabled: true,
-      moorBridge: moorBridge,
+      driftBridge: driftBridge,
       rowsPerPage: 7,
     );
   }
