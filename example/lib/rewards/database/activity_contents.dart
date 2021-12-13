@@ -36,8 +36,7 @@ class RewardsDatabase extends _$RewardsDatabase {
 
 @DriftAccessor(tables: [ActivityContents])
 class ActivityContentDao extends DatabaseAccessor<RewardsDatabase> with _$ActivityContentDaoMixin {
-  final RewardsDatabase db;
-  ActivityContentDao(this.db) : super(db);
+  ActivityContentDao(RewardsDatabase db) : super(db);
 
   Future<List<ActivityContent>> getAllTasks() => select(activityContents).get();
   Stream<List<ActivityContent>> watchAllTasks() => select(activityContents).watch();
