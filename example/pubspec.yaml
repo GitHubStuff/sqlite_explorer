@@ -4,8 +4,8 @@ publish_to: none
 version: 0.0.6+1
 
 environment:
-  sdk: ">=2.14.4 <3.0.0" #Dart SDK 2021-10-15
-  flutter: ">=2.5.3"
+  sdk: ">=2.16.0 <3.0.0" #Dart SDK 2022-02-04
+  flutter: ">=2.10.0"
 
 dependencies:
   flutter:
@@ -38,8 +38,8 @@ dependencies:
   path: ^1.8.0
   path_provider: ^2.0.2
   shared_preferences: ^2.0.6
-  sqflite: ^2.0.0+3
-  sqlite3_flutter_libs: ^0.5.0
+  sqflite: ^2.0.2
+  sqlite3_flutter_libs: ^0.5.3
 
 dev_dependencies:
   build_runner: ^2.1.5

@@ -3,7 +3,7 @@
 part of 'activity_contents.dart';
 
 // **************************************************************************
-// DriftGenerator
+// MoorGenerator
 // **************************************************************************
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
@@ -496,112 +496,136 @@ class ActivityContentsCompanion extends UpdateCompanion<ActivityContent> {
 }
 
 class $ActivityContentsTable extends ActivityContents with TableInfo<$ActivityContentsTable, ActivityContent> {
-  final GeneratedDatabase _db;
+  @override
+  final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $ActivityContentsTable(this._db, [this._alias]);
+  $ActivityContentsTable(this.attachedDatabase, [this._alias]);
   final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
   late final GeneratedColumn<int?> id =
-      GeneratedColumn<int?>('id', aliasedName, false, typeName: 'INTEGER', requiredDuringInsert: false, defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
+      GeneratedColumn<int?>('id', aliasedName, false, type: const IntType(), requiredDuringInsert: false, defaultConstraints: 'PRIMARY KEY AUTOINCREMENT');
   final VerificationMeta _activityIdMeta = const VerificationMeta('activityId');
+  @override
   late final GeneratedColumn<String?> activityId = GeneratedColumn<String?>('activity_id', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _amountMeta = const VerificationMeta('amount');
-  late final GeneratedColumn<double?> amount = GeneratedColumn<double?>('amount', aliasedName, false, typeName: 'REAL', requiredDuringInsert: false, defaultValue: Constant(0.0));
+  @override
+  late final GeneratedColumn<double?> amount =
+      GeneratedColumn<double?>('amount', aliasedName, false, type: const RealType(), requiredDuringInsert: false, defaultValue: Constant(0.0));
   final VerificationMeta _confirmationCancelMeta = const VerificationMeta('confirmationCancel');
+  @override
   late final GeneratedColumn<String?> confirmationCancel = GeneratedColumn<String?>('confirmation_cancel', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _confirmationSaveMeta = const VerificationMeta('confirmationSave');
+  @override
   late final GeneratedColumn<String?> confirmationSave = GeneratedColumn<String?>('confirmation_save', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _confirmationTitleMeta = const VerificationMeta('confirmationTitle');
+  @override
   late final GeneratedColumn<String?> confirmationTitle = GeneratedColumn<String?>('confirmation_title', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _dateCompleteCaptionMeta = const VerificationMeta('dateCompleteCaption');
+  @override
   late final GeneratedColumn<String?> dateCompleteCaption = GeneratedColumn<String?>('date_complete_caption', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 4,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _dateFormatMeta = const VerificationMeta('dateFormat');
+  @override
   late final GeneratedColumn<String?> dateFormat = GeneratedColumn<String?>('date_format', aliasedName, false,
-      additionalChecks: GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 15), typeName: 'TEXT', requiredDuringInsert: false, defaultValue: Constant('MM-dd-yyy'));
+      additionalChecks: GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 15),
+      type: const StringType(),
+      requiredDuringInsert: false,
+      defaultValue: Constant('MM-dd-yyy'));
   final VerificationMeta _detailsMeta = const VerificationMeta('details');
+  @override
   late final GeneratedColumn<String?> details = GeneratedColumn<String?>('details', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _imageUrlMeta = const VerificationMeta('imageUrl');
+  @override
   late final GeneratedColumn<String?> imageUrl = GeneratedColumn<String?>('image_url', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _languageMeta = const VerificationMeta('language');
+  @override
   late final GeneratedColumn<String?> language = GeneratedColumn<String?>('language', aliasedName, false,
-      additionalChecks: GeneratedColumn.checkTextLength(minTextLength: 2, maxTextLength: 2), typeName: 'TEXT', requiredDuringInsert: true);
+      additionalChecks: GeneratedColumn.checkTextLength(minTextLength: 2, maxTextLength: 2), type: const StringType(), requiredDuringInsert: true);
   final VerificationMeta _rewardTypeMeta = const VerificationMeta('rewardType');
+  @override
   late final GeneratedColumn<String?> rewardType = GeneratedColumn<String?>('reward_type', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _sequencesMeta = const VerificationMeta('sequences');
-  late final GeneratedColumn<int?> sequences = GeneratedColumn<int?>('sequences', aliasedName, false, typeName: 'INTEGER', requiredDuringInsert: false, defaultValue: Constant(1));
+  @override
+  late final GeneratedColumn<int?> sequences =
+      GeneratedColumn<int?>('sequences', aliasedName, false, type: const IntType(), requiredDuringInsert: false, defaultValue: Constant(1));
   final VerificationMeta _setDateCaptionMeta = const VerificationMeta('setDateCaption');
+  @override
   late final GeneratedColumn<String?> setDateCaption = GeneratedColumn<String?>('set_date_caption', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _spinnerMessageMeta = const VerificationMeta('spinnerMessage');
+  @override
   late final GeneratedColumn<String?> spinnerMessage = GeneratedColumn<String?>('spinner_message', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _titleMeta = const VerificationMeta('title');
+  @override
   late final GeneratedColumn<String?> title = GeneratedColumn<String?>('title', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _validFromMeta = const VerificationMeta('validFrom');
+  @override
   late final GeneratedColumn<String?> validFrom = GeneratedColumn<String?>('valid_from', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   final VerificationMeta _validUntilMeta = const VerificationMeta('validUntil');
+  @override
   late final GeneratedColumn<String?> validUntil = GeneratedColumn<String?>('valid_until', aliasedName, false,
       additionalChecks: GeneratedColumn.checkTextLength(
         minTextLength: 1,
       ),
-      typeName: 'TEXT',
+      type: const StringType(),
       requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns => [
@@ -726,7 +750,7 @@ class $ActivityContentsTable extends ActivityContents with TableInfo<$ActivityCo
 
   @override
   $ActivityContentsTable createAlias(String alias) {
-    return $ActivityContentsTable(_db, alias);
+    return $ActivityContentsTable(attachedDatabase, alias);
   }
 }
 

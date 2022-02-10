@@ -1,11 +1,11 @@
 name: sqlite_explorer
 description: Package to let developer display sqlite data tables
 publish_to: none
-version: 0.10.0+1
+version: 0.10.0+2
 
 environment:
-  sdk: ">=2.14.4 <3.0.0" #Dart SDK 2021-10-15
-  flutter: ">=2.5.3"
+  sdk: ">=2.16.0 <3.0.0" #Dart SDK 2022-02-04
+  flutter: ">=2.10.0"
 
 dependencies:
   flutter:
