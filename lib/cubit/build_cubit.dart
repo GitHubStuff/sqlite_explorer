@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:sqlite_explorer/src/fsm_datasource.dart';
 import 'package:theme_manager/theme_manager.dart';
 
