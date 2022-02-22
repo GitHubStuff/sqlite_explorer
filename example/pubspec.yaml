@@ -8,18 +8,33 @@ environment:
   flutter: ">=2.10.0"
 
 dependencies:
+  after_layout: ^1.1.0
+  auto_size_text: ^3.0.0
+  cupertino_icons: ^1.0.4
+  drift: ^1.0.1
   flutter:
     sdk: flutter
-  sqlite_explorer:
-    path: ../
+  flutter_bloc: ^8.0.0
   flutter_extras:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: flutter_extras
+  flutter_modular: ^4.2.0
+  intl: ^0.17.0
+  path: ^1.8.0
+  path_provider: ^2.0.2
   persisted_cache:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: persisted_cache
+  shared_preferences: ^2.0.6
+  sqflite: ^2.0.2
+  sqlite3_flutter_libs: ^0.5.3
+  sqlite_explorer:
+    path: ../
+  theme_management:
+    git:
+      url: https://github.com/RAE-Health/theme_management.git
   tracers_package:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
@@ -28,18 +43,6 @@ dependencies:
     git:
       url: https://github.com/GitHubStuff/flutter_packages.git
       path: xfer
-  after_layout: ^1.1.0
-  auto_size_text: ^3.0.0
-  cupertino_icons: ^1.0.4
-  drift: ^1.0.1
-  flutter_bloc: ^8.0.0
-  flutter_modular: ^4.2.0
-  intl: ^0.17.0
-  path: ^1.8.0
-  path_provider: ^2.0.2
-  shared_preferences: ^2.0.6
-  sqflite: ^2.0.2
-  sqlite3_flutter_libs: ^0.5.3
 
 dev_dependencies:
   build_runner: ^2.1.5
